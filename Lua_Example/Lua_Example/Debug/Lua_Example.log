@@ -1,0 +1,11 @@
+﻿Build started 4/5/2014 3:40:56 PM.
+     1>Project "Z:\IGMProfile\Documents\GitHub\Lua-Project\Lua_Example\Lua_Example\Lua_Example.vcxproj" on node 2 (Build target(s)).
+     1>Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"Z:\IGMProfile\Documents\GitHub\Lua-Project\Lua_Example\Debug\Lua_Example.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"Z:\IGMProfile\Documents\GitHub\Lua-Project\Lua_Example\Debug\Lua_Example.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"Z:\IGMProfile\Documents\GitHub\Lua-Project\Lua_Example\Debug\Lua_Example.lib" /MACHINE:X86 Debug\Main.obj
+     1>MSVCRTD.lib(crtexew.obj) : error LNK2019: unresolved external symbol _WinMain@16 referenced in function ___tmainCRTStartup
+     1>Z:\IGMProfile\Documents\GitHub\Lua-Project\Lua_Example\Debug\Lua_Example.exe : fatal error LNK1120: 1 unresolved externals
+     1>Done Building Project "Z:\IGMProfile\Documents\GitHub\Lua-Project\Lua_Example\Lua_Example\Lua_Example.vcxproj" (Build target(s)) -- FAILED.
+
+Build FAILED.
+
+Time Elapsed 00:00:01.26
