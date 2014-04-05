@@ -1,11 +1,9 @@
-#include "Main.h"
+#include <iostream>
 
-
-Main::Main(void)
+int main(int argc, const char * argv[])
 {
-}
-
-
-Main::~Main(void)
-{
+    
+    // insert code here...
+    
+    return 0;
 }

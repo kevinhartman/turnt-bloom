@@ -6,6 +6,10 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		0A0E1BC118F095D400178116 /* Main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A0E1BBF18F095D400178116 /* Main.cpp */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		0A0E1BB018F091A800178116 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -20,6 +24,7 @@
 
 /* Begin PBXFileReference section */
 		0A0E1BB218F091A900178116 /* LuaProject */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = LuaProject; sourceTree = BUILT_PRODUCTS_DIR; };
+		0A0E1BBF18F095D400178116 /* Main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Main.cpp; path = Lua_Example/Lua_Example/Main.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +57,7 @@
 		0A0E1BBE18F0929C00178116 /* Project */ = {
 			isa = PBXGroup;
 			children = (
+				0A0E1BBF18F095D400178116 /* Main.cpp */,
 			);
 			name = Project;
 			sourceTree = "<group>";
@@ -107,6 +113,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A0E1BC118F095D400178116 /* Main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
