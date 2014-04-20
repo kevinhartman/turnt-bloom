@@ -7,24 +7,46 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0A839CA318F098FD00519975 /* Lua_Example.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A839C9F18F098FD00519975 /* Lua_Example.cpp */; };
+		0A02D4551903547A0059C630 /* GameMap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A02D4491903547A0059C630 /* GameMap.cpp */; };
+		0A02D4561903547A0059C630 /* GameObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A02D44B1903547A0059C630 /* GameObject.cpp */; };
+		0A02D4571903547A0059C630 /* ScriptEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A02D44E1903547A0059C630 /* ScriptEngine.cpp */; };
+		0A02D4591903547B0059C630 /* LuaGameObjectScript.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A02D4531903547A0059C630 /* LuaGameObjectScript.cpp */; };
+		0A02D46219038FCC0059C630 /* LuaGameMapScript.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A02D46019038FCC0059C630 /* LuaGameMapScript.cpp */; };
+		0A3244C818FC9A8500F480B7 /* liblua.5.2.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A3244C718FC9A8500F480B7 /* liblua.5.2.3.dylib */; };
+		0A3244CA18FD76B800F480B7 /* game_objects in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0A3244C918FD76A200F480B7 /* game_objects */; };
+		0AA52F07190350B70056C5B9 /* Lua_Example.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0AA52F06190350B70056C5B9 /* Lua_Example.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		0A0E1BB018F091A800178116 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
-			dstSubfolderSpec = 0;
+			buildActionMask = 12;
+			dstPath = "";
+			dstSubfolderSpec = 6;
 			files = (
+				0A3244CA18FD76B800F480B7 /* game_objects in CopyFiles */,
 			);
-			runOnlyForDeploymentPostprocessing = 1;
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0A02D4491903547A0059C630 /* GameMap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameMap.cpp; sourceTree = "<group>"; };
+		0A02D44A1903547A0059C630 /* GameMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameMap.h; sourceTree = "<group>"; };
+		0A02D44B1903547A0059C630 /* GameObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameObject.cpp; sourceTree = "<group>"; };
+		0A02D44C1903547A0059C630 /* GameObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameObject.h; sourceTree = "<group>"; };
+		0A02D44D1903547A0059C630 /* GameObjectScript.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameObjectScript.h; sourceTree = "<group>"; };
+		0A02D44E1903547A0059C630 /* ScriptEngine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScriptEngine.cpp; sourceTree = "<group>"; };
+		0A02D44F1903547A0059C630 /* ScriptEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScriptEngine.h; sourceTree = "<group>"; };
+		0A02D4531903547A0059C630 /* LuaGameObjectScript.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LuaGameObjectScript.cpp; sourceTree = "<group>"; };
+		0A02D4541903547A0059C630 /* LuaGameObjectScript.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LuaGameObjectScript.h; sourceTree = "<group>"; };
+		0A02D46019038FCC0059C630 /* LuaGameMapScript.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LuaGameMapScript.cpp; sourceTree = "<group>"; };
+		0A02D46119038FCC0059C630 /* LuaGameMapScript.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LuaGameMapScript.h; sourceTree = "<group>"; };
+		0A02D46419038FEF0059C630 /* GameMapScript.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameMapScript.h; sourceTree = "<group>"; };
 		0A0E1BB218F091A900178116 /* LuaProject */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = LuaProject; sourceTree = BUILT_PRODUCTS_DIR; };
-		0A839C9F18F098FD00519975 /* Lua_Example.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Lua_Example.cpp; path = Lua_Example/Lua_Example/Lua_Example.cpp; sourceTree = "<group>"; };
+		0A3244C718FC9A8500F480B7 /* liblua.5.2.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = liblua.5.2.3.dylib; path = ../../../../../../usr/local/Cellar/lua52/5.2.3/lib/liblua.5.2.3.dylib; sourceTree = "<group>"; };
+		0A3244C918FD76A200F480B7 /* game_objects */ = {isa = PBXFileReference; lastKnownFileType = folder; name = game_objects; path = Lua_Example/Lua_Example/game_objects; sourceTree = "<group>"; };
+		0AA52F06190350B70056C5B9 /* Lua_Example.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Lua_Example.cpp; path = Lua_Example/Lua_Example/Lua_Example.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -32,15 +54,45 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A3244C818FC9A8500F480B7 /* liblua.5.2.3.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0A02D4481903547A0059C630 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				0A02D4491903547A0059C630 /* GameMap.cpp */,
+				0A02D44A1903547A0059C630 /* GameMap.h */,
+				0A02D44C1903547A0059C630 /* GameObject.h */,
+				0A02D44B1903547A0059C630 /* GameObject.cpp */,
+				0A02D44F1903547A0059C630 /* ScriptEngine.h */,
+				0A02D44E1903547A0059C630 /* ScriptEngine.cpp */,
+				0A02D44D1903547A0059C630 /* GameObjectScript.h */,
+				0A02D46419038FEF0059C630 /* GameMapScript.h */,
+			);
+			name = Core;
+			path = Lua_Example/Lua_Example/Core;
+			sourceTree = "<group>";
+		};
+		0A02D4501903547A0059C630 /* Lua */ = {
+			isa = PBXGroup;
+			children = (
+				0A02D4541903547A0059C630 /* LuaGameObjectScript.h */,
+				0A02D4531903547A0059C630 /* LuaGameObjectScript.cpp */,
+				0A02D46119038FCC0059C630 /* LuaGameMapScript.h */,
+				0A02D46019038FCC0059C630 /* LuaGameMapScript.cpp */,
+			);
+			name = Lua;
+			path = Lua_Example/Lua_Example/Lua;
+			sourceTree = "<group>";
+		};
 		0A0E1BA918F091A800178116 = {
 			isa = PBXGroup;
 			children = (
+				0A3244C718FC9A8500F480B7 /* liblua.5.2.3.dylib */,
 				0A0E1BBE18F0929C00178116 /* Project */,
 				0A0E1BB318F091A900178116 /* Products */,
 			);
@@ -57,7 +109,10 @@
 		0A0E1BBE18F0929C00178116 /* Project */ = {
 			isa = PBXGroup;
 			children = (
-				0A839C9F18F098FD00519975 /* Lua_Example.cpp */,
+				0AA52F06190350B70056C5B9 /* Lua_Example.cpp */,
+				0A02D4481903547A0059C630 /* Core */,
+				0A02D4501903547A0059C630 /* Lua */,
+				0A3244C918FD76A200F480B7 /* game_objects */,
 			);
 			name = Project;
 			sourceTree = "<group>";
@@ -113,7 +168,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0A839CA318F098FD00519975 /* Lua_Example.cpp in Sources */,
+				0A02D4591903547B0059C630 /* LuaGameObjectScript.cpp in Sources */,
+				0A02D4571903547A0059C630 /* ScriptEngine.cpp in Sources */,
+				0A02D4551903547A0059C630 /* GameMap.cpp in Sources */,
+				0AA52F07190350B70056C5B9 /* Lua_Example.cpp in Sources */,
+				0A02D46219038FCC0059C630 /* LuaGameMapScript.cpp in Sources */,
+				0A02D4561903547A0059C630 /* GameObject.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -152,6 +212,12 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					/usr/local/Cellar/lua52/5.2.3/include/,
+					/usr/local/Cellar/glm/0.9.5.3/include/,
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
@@ -185,6 +251,12 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					/usr/local/Cellar/lua52/5.2.3/include/,
+					/usr/local/Cellar/glm/0.9.5.3/include/,
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				SDKROOT = macosx;
 			};
@@ -193,6 +265,10 @@
 		0A0E1BBC18F091A900178116 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/usr/local/Cellar/lua52/5.2.3/lib,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -200,6 +276,10 @@
 		0A0E1BBD18F091A900178116 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/usr/local/Cellar/lua52/5.2.3/lib,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
