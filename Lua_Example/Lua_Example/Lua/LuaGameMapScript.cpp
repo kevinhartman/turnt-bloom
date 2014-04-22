@@ -67,9 +67,28 @@ LuaGameMapScript::loadScript(std::string scriptPath) {
         case LUA_ERRMEM:
             fprintf(stderr, "** Error loading %s: Memory allocation error.\n", scriptPath.c_str());
             return false;
-            
+            //TODO: check for unspecified errors
         default:
-            printf("Loaded map %s", scriptPath.c_str());
+            printf("Loaded map %s\n", scriptPath.c_str());
+    }
+    
+    result = lua_pcall(m_lua, 0, LUA_MULTRET, 0);
+    
+    switch (result) {
+        case LUA_ERRRUN:
+            fprintf(stderr, "** Error running %s: Runtime error.\n", scriptPath.c_str());
+            return false;
+            
+        case LUA_ERRMEM:
+            fprintf(stderr, "** Error running %s: Memory error.\n", scriptPath.c_str());
+            return false;
+            
+        case LUA_ERRERR:
+            fprintf(stderr, "** Error running %s: Error handler error.\n", scriptPath.c_str());
+            return false;
+            //TODO: check for unspecified errors
+        default:
+            printf("Ran map %s\n", scriptPath.c_str());
     }
     
     return true;
@@ -98,6 +117,23 @@ LuaGameMapScript::setEnvironmentFor(GameMap &map) {
 bool
 LuaGameMapScript::initializeMap(GameMap &map) {
     // STUBBED
+    
+    lua_getglobal(m_lua, GLOBAL_SPEED);
+    double speed = lua_tonumber(m_lua, -1);
+    printf("[C++] speed = %f\n", speed);
+    
+    lua_getglobal(m_lua, GLOBAL_FIELD_OF_VIEW);
+    double fieldOfView = lua_tonumber(m_lua, -1);
+    printf("[C++] fieldOfView = %f\n", fieldOfView);
+    
+    lua_getglobal(m_lua, GLOBAL_VISION_DEPTH);
+    double visionDepth = lua_tonumber(m_lua, -1);
+    printf("[C++] visionDepth = %f\n", visionDepth);
+    
+    lua_getglobal(m_lua, GLOBAL_BODY_RADIUS);
+    double bodyRadius = lua_tonumber(m_lua, -1);
+    printf("[C++] bodyRadius = %f\n", bodyRadius);
+    
     return false;
     
 }
@@ -130,6 +166,7 @@ LuaGameMapScript::createNewGameMap(std::string scriptPath) {
     /* registry[map] = _ENV */
     lua_settable(m_lua, LUA_REGISTRYINDEX);
     
+    initializeMap(*map);
     
     /* This is where you create GameObjects that will be in this GameMap.
      * Use their script to make them and add the resulting GameObjects
