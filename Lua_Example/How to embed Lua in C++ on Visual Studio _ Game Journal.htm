@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<!--[if IE 8]>
+<html id="ie8" lang="en">
+<![endif]-->
+<!--[if !(IE 8)]><!-->
+<html lang="en">
+<!--<![endif]-->
+<!--
+	generated in 0.263 seconds
+	59035 bytes batcached for 300 seconds
+-->
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width" />
+<title>How to embed Lua in C++ on Visual Studio | Game Journal</title>
+<link rel="profile" href="http://gmpg.org/xfn/11" />
+<link rel="pingback" href="http://gamejournalofyojan.wordpress.com/xmlrpc.php" />
+<!--[if lt IE 9]>
+	<script src="http://s2.wp.com/wp-content/themes/pub/able/js/html5.js?m=1351293127g" type="text/javascript"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="Game Journal &raquo; Feed" href="http://gamejournalofyojan.wordpress.com/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Game Journal &raquo; Comments Feed" href="http://gamejournalofyojan.wordpress.com/comments/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Game Journal &raquo; How to embed Lua in C++ on Visual&nbsp;Studio Comments Feed" href="http://gamejournalofyojan.wordpress.com/2012/12/17/how-to-embed-lua-in-c-on-visual-studio/feed/" />
+<script type="text/javascript">
+/* <![CDATA[ */
+function addLoadEvent(func){var oldonload=window.onload;if(typeof window.onload!='function'){window.onload=func;}else{window.onload=function(){oldonload();func();}}}
+/* ]]> */
+</script>
+<link rel='stylesheet' id='all-css-0' href='http://s1.wp.com/_static/??-eJx9jt0OgjAMRl/I2Yjiz4XxWcaoY9DRhXUhvL2biTEGw12/5pz2gzkow6PgKOCTCpSsGyNE7wiXMHGPRn7T3sS4g/8auQEj9ChBm0G90wpviO1XYGux5STqyUQ8w+xai5s/DE+Y9z5oKYTH1mkk9Bnb0nw4f6wydrngupt0+U6EkBrQDSFEWQgL9fD3w/F2qarTta77F5OZc2k=' type='text/css' media='all' />
+<link rel='stylesheet' id='droid-serif-css'  href='http://fonts.googleapis.com/css?family=Droid+Serif%3A400%2C700%2C400italic%2C700italic&#038;ver=3.9-RC1' type='text/css' media='all' />
+<link rel='stylesheet' id='all-css-2' href='http://s1.wp.com/_static/??-eJx9j9EKwjAMRX/IGnTq8EH8lraLWSVtStMy/Hvn2MNA2FPuJTmXG5iy8ZIqpgp1xIgKuTmwjhFC8qD1w6hmyl7i0aseYAPEZjI3CkmhoGOhWRLMVxu7B2XRal5sQwEdbfnB69yjCBOWMC+28g9YnxkvQCzO8l7iFAbCqktzEhkK2mFJfMbHqbtf+667nfv3F8Bhb9I=' type='text/css' media='all' />
+<script type='text/javascript'>
+/* <![CDATA[ */
+var LoggedOutFollow = {"invalid_email":"Your subscription did not succeed, please try again with a valid email address."};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://s1.wp.com/_static/??-eJyFjd0OwiAMRl9IxswudBfGZ9lPR4rQIoURfXox0USjya7atOf7ji5BTUwJKGkr2vOIDlQWiIOpN4W0cGNlpyuHNLk8gzxBe80Qb6+xCSiPJg4JGo/0hj+sgSV5EKnKP99vFdKKUDYxCykM00VFELz/tI6OjQouGyTRdTcwc05qYee46IKzgVQzZ3/ad/2hPfZt19sHPZxvvg=='></script>
+<link rel='stylesheet' id='all-css-0' href='http://s2.wp.com/wp-content/mu-plugins/highlander-comments/style.css?m=1377793621g' type='text/css' media='all' />
+<!--[if lt IE 8]>
+<link rel='stylesheet' id='highlander-comments-ie7-css'  href='http://s2.wp.com/wp-content/mu-plugins/highlander-comments/style-ie7.css?m=1351637563g&#038;ver=20110606' type='text/css' media='all' />
+<![endif]-->
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://gamejournalofyojan.wordpress.com/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://gamejournalofyojan.wordpress.com/wp-includes/wlwmanifest.xml" /> 
+<link rel='prev' title='Post analysis of my demo&nbsp;game.' href='http://gamejournalofyojan.wordpress.com/2012/11/27/post-analysis-of-my-presentable-demo-game/' />
+<meta name="generator" content="WordPress.com" />
+<link rel='canonical' href='http://gamejournalofyojan.wordpress.com/2012/12/17/how-to-embed-lua-in-c-on-visual-studio/' />
+<link rel='shortlink' href='http://wp.me/p2M8IA-7c' />
+<link rel="alternate" type="application/json+oembed" href="https://public-api.wordpress.com/oembed/1.0/?format=json&amp;url=http%3A%2F%2Fgamejournalofyojan.wordpress.com%2F2012%2F12%2F17%2Fhow-to-embed-lua-in-c-on-visual-studio%2F&amp;for=wpcom-auto-discovery" /><link rel="alternate" type="application/xml+oembed" href="https://public-api.wordpress.com/oembed/1.0/?format=xml&amp;url=http%3A%2F%2Fgamejournalofyojan.wordpress.com%2F2012%2F12%2F17%2Fhow-to-embed-lua-in-c-on-visual-studio%2F&amp;for=wpcom-auto-discovery" />
+<!-- Jetpack Open Graph Tags -->
+<meta property="og:type" content="article" />
+<meta property="og:title" content="How to embed Lua in C++ on Visual Studio" />
+<meta property="og:url" content="http://gamejournalofyojan.wordpress.com/2012/12/17/how-to-embed-lua-in-c-on-visual-studio/" />
+<meta property="og:description" content="These instructions are geared toward those programmers that are primarily interested in making video games and who wants to embed a scripting language (lightweight language) in their programming la..." />
+<meta property="article:published_time" content="2012-12-17T10:15:31+00:00" />
+<meta property="article:modified_time" content="2012-12-19T20:32:17+00:00" />
+<meta property="article:author" content="http://gamejournalofyojan.wordpress.com/author/sinkingshriek/" />
+<meta property="og:site_name" content="Game Journal" />
+<meta property="og:image" content="http://wordpress.com/i/blank.jpg?m=1383295312g" />
+<meta name="twitter:site" content="@wordpressdotcom" />
+<meta name="twitter:card" content="summary" />
+<meta property="fb:app_id" content="249643311490" />
+<meta property="article:publisher" content="https://www.facebook.com/WordPresscom" />
+<link rel="shortcut icon" type="image/x-icon" href="http://s2.wp.com/i/favicon.ico?m=1311975824g" sizes="16x16 24x24 32x32 48x48" />
+<link rel="icon" type="image/x-icon" href="http://s2.wp.com/i/favicon.ico?m=1311975824g" sizes="16x16 24x24 32x32 48x48" />
+<link rel="apple-touch-icon-precomposed" href="http://s0.wp.com/i/webclip.png?m=1391188133g" />
+<link rel='openid.server' href='http://gamejournalofyojan.wordpress.com/?openidserver=1' />
+<link rel='openid.delegate' href='http://gamejournalofyojan.wordpress.com/' />
+<link rel="search" type="application/opensearchdescription+xml" href="http://gamejournalofyojan.wordpress.com/osd.xml" title="Game Journal" />
+<link rel="search" type="application/opensearchdescription+xml" href="http://wordpress.com/opensearch.xml" title="WordPress.com" />
+		<style type="text/css">
+			body {
+				background-image: none;
+			}
+		</style>
+	<meta name="application-name" content="Game Journal" /><meta name="msapplication-window" content="width=device-width;height=device-height" /><meta name="msapplication-tooltip" content="My everyday discovery." /><meta name="msapplication-task" content="name=Subscribe;action-uri=http://gamejournalofyojan.wordpress.com/feed/;icon-uri=http://s2.wp.com/i/favicon.ico" /><meta name="msapplication-task" content="name=Sign up for a free blog;action-uri=http://wordpress.com/signup/;icon-uri=http://s2.wp.com/i/favicon.ico" /><meta name="msapplication-task" content="name=WordPress.com Support;action-uri=http://support.wordpress.com/;icon-uri=http://s2.wp.com/i/favicon.ico" /><meta name="msapplication-task" content="name=WordPress.com Forums;action-uri=http://forums.wordpress.com/;icon-uri=http://s2.wp.com/i/favicon.ico" /><meta name="title" content="How to embed Lua in C++ on Visual&nbsp;Studio | Game Journal on WordPress.com" />
+<meta name="description" content="These instructions are geared toward those programmers that are primarily interested in making video games and who wants to embed a scripting language (lightweight language) in their programming language (heavyweight language) for faster development process. Therefore, some prior knowledge of some programming language is recommended. However, much effort will be done to make even the&hellip;" />
+
+<script type='text/javascript' src='http://partner.googleadservices.com/gampad/google_service.js'>
+</script>
+<script type='text/javascript'>
+if ( typeof GS_googleAddAdSenseService == 'function' ) { GS_googleAddAdSenseService("ca-pub-3443918307802676"); }
+if ( typeof GS_googleEnableAllServices == 'function' ) { GS_googleEnableAllServices() };
+</script>
+<script type="text/javascript" src="http://c.amazon-adsystem.com/aax2/amzn_ads.js"></script>
+<script type="text/javascript">
+try { amznads.getAds("3033","300x250"); } catch(e) { /* ignore */ }
+</script>
+<script type="text/javascript">
+var amznKeys = amznads.getKeys();
+if (typeof amznKeys != "undefined" && amznKeys != "") { for (var i =0; i < amznKeys.length; i++) { var key = amznKeys[i]; GA_googleAddAttr("amzn", key);} }
+document.close();
+</script>
+<script type='text/javascript'>
+if ( typeof GA_googleAddSlot == 'function' ) { GA_googleAddSlot("ca-pub-3443918307802676", "wpcom_below_post"); }
+</script>
+<script type='text/javascript'>
+if ( typeof GA_googleFetchAds == 'function' ) { GA_googleFetchAds(); }
+</script>
+
+<script type="text/javascript">
+var wpcom_ads = { bid: 41025932, pt: 'permalink', wa: 0, as: 0, domain: 'gamejournalofyojan.wordpress.com', url: 'http://gamejournalofyojan.wordpress.com/2012/12/17/how-to-embed-lua-in-c-on-visual-studio/', gid: '', };
+</script>
+<style type="text/css" id="syntaxhighlighteranchor"></style>
+<script type="text/javascript">
+	window.google_analytics_uacct = "UA-52447-2";
+</script>
+
+<script type="text/javascript">
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-52447-2']);
+	_gaq.push(['_setDomainName', 'wordpress.com']);
+	_gaq.push(['_initData']);
+	_gaq.push(['_trackPageview']);
+
+	(function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ga);
+	})();
+</script>
+</head>
+
+<body class="single single-post postid-446 single-format-standard mp6 left-sidebar gecko highlander-enabled highlander-light">
+<div id="page" class="hfeed site">
+	<div id="site-introduction">
+		<h1 class="site-title"><a href="http://gamejournalofyojan.wordpress.com/" title="Game Journal" rel="home">Game Journal</a></h1>
+		<h2 class="site-description">My everyday discovery.</h2>
+	</div><!-- #site-title -->
+	<div id="page-liner">
+		<header id="masthead" class="site-header" role="banner">
+			
+			<nav role="navigation" class="site-navigation main-navigation">
+				<h1 class="assistive-text">Menu</h1>
+				<div class="assistive-text skip-link"><a href="#content" title="Skip to content">Skip to content</a></div>
+
+				<div class="menu"><ul><li ><a href="http://gamejournalofyojan.wordpress.com/">Home</a></li></ul></div>
+			</nav><!-- .site-navigation .main-navigation -->
+		</header><!-- #masthead .site-header -->
+
+		<div id="main">
+	<div id="primary" class="site-content">
+		<div id="content" role="main">
+
+		
+			
+<article id="post-446" class="post-446 post type-post status-publish format-standard hentry category-uncategorized tag-beginner tag-c tag-game-programming tag-lua tag-tutorial tag-visual-studio tag-windows">
+	<header class="entry-header">
+		<h1 class="entry-title">How to embed Lua in C++ on Visual&nbsp;Studio</h1>
+
+		<div class="entry-meta">
+			Posted on <a href="http://gamejournalofyojan.wordpress.com/2012/12/17/how-to-embed-lua-in-c-on-visual-studio/" title="10:15 am" rel="bookmark"><time class="entry-date" datetime="2012-12-17T10:15:31+00:00" pubdate>December 17, 2012</time></a><span class="byline"> by <span class="author vcard"><a class="url fn n" href="http://gamejournalofyojan.wordpress.com/author/sinkingshriek/" title="View all posts by shriek" rel="author">shriek</a></span></span>		</div><!-- .entry-meta -->
+	</header><!-- .entry-header -->
+
+	<div class="entry-content">
+		<p>These instructions are geared toward those programmers that are primarily interested in making video games and who wants to embed a scripting language (lightweight language) in their programming language (heavyweight language) for faster development process. Therefore, some prior knowledge of some programming language is recommended. However, much effort will be done to make even the beginner feel comfortable with the process.</p>
+<p>If you have ever worked on huge project, especially on video games, then making few changes in your programming language to fine tune the game will often mean repeating the compiling process (turning your code into machine code) over and over again. This can cause headaches and unnecessary waste of time. To get past this issue developers often embed scripting language to their programming language to make this process hassle-free. Here, Lua is a scripting language and C++ is a programming language. After the setup you can run your Lua scripts inside C++.</p>
+<p>These instructions will tell you how to 1) download Lua source code 2) extract Lua archive 3) setup proper environment variables 4) build/compile Lua source files 5) configure Visual Studio 6) setup project folders</p>
+<p><b>Resources</b></p>
+<ul>
+<li>Windows 7 or up</li>
+<li>Visual Studio 2010 or up</li>
+<li>Any file archiver / compressor (7-zip preferred)</li>
+<li>Stable Internet Connection</li>
+<li>Notepad or any text editor</li>
+</ul>
+<p><b> </b></p>
+<p><b>Download Lua source code.</b> There are thousands of websites that offers Lua source code in the Internet but <b>make sure</b> you get it from the official site.</p>
+<ul>
+<li>Open up your favorite internet browser and go to <a href="http://www.lua.org" rel="nofollow">http://www.lua.org</a>.</li>
+<li>Click on the download link.</li>
+<li>You will be provided with binary files or the source files. Since we are building Lua from scratch we don’t need binary files so click on the download link under “Source” section.</li>
+<li>Listed will be all the versions of Lua. Click on the most recent one, usually listed at the top under .gz file extension.</li>
+<li>Click on that link and wait for the download to finish.</li>
+</ul>
+<p><b>Extract Lua archive.</b> What we have so far from the download is just a compressed file. Make sure you have your file archiver/compressor installed for these following steps.</p>
+<ul>
+<li>Un-compress/extract the download file from your favorite file archiver twice. We need to do it two times because Lua source code usually comes with .tar.gz with double compression.</li>
+<li>After the extracting process enter the recently extracted folder. There should be two directories named “src” and “doc”</li>
+</ul>
+<p><b>Setting up Environment Variable. </b>Before you go ahead and type anything, make sure your environment variable for Visual Studio is setup properly. To do this follow the following steps. If you already know it has been setup then skip this section.</p>
+<ul>
+<li>Locate the bin folder of your Visual Studio, usually in (C:\Program Files\Microsoft Visual Studio 11.0\VC\bin). I happen to have Visual Studio 11.0 but this can be different for different version and copy the location folder.</li>
+</ul>
+<ul>
+<li>Open up your control panel and look for “System” settings.(If your view is set as “View by: Category” which the default setting usually is, then change is to “View by: Large icons”</li>
+<li>Click the “System” and then a new window should pop up and click on “Advance System Settings” on the left hand side.</li>
+<li>Another windows should pop up and this time click on the “Environment Variables” button at the bottom and on the “System Variables” section under you should see “Path” Variable.</li>
+<li>Double click on the Path’s value and here you will be able to edit the values.</li>
+<li>Add your recently copied location to this box. VERY IMPORTANT: If there are already some other values there then <b>DO NOT DELETE THEM.</b></li>
+</ul>
+<ul>
+<li>Press OK.</li>
+<li>Go inside the “src” folder in your recently extracted Lua source files.</li>
+<li>Press shift and right click on any blank area in that window (this should bring up extra menu options) and look for “Open Command Window Here”. Click that option.</li>
+<li>A console window should open. Type “vcvars32.bat” and hit enter. This is to tell your console window that path of Visual Studio from your Environment Variables is ready.</li>
+</ul>
+<p><b>Building Lua library.</b> Libraries in programming are collection of codes that your program can take advantage of without the need to write your own methods/functions making development process even faster. In our previous steps although we extracted the source files we still need to compile/build them to get our single library file.</p>
+<ul>
+<li>Open up a notepad or your favorite text editor and type the following:-</li>
+</ul>
+<pre>cl /MD /O2 /W3 /c /DLUA_BUILD_AS_DLL *.c
+del *.o
+ren lua.obj lua.o
+ren luac.obj luac.o
+ren print.obj print.o
+link /DLL /IMPLIB:lua5.2.lib /OUT:lua5.2.dll *.obj
+link /OUT:lua.exe lua.o lua5.2.lib
+lib /out:lua5.2-static.lib *.obj
+link /OUT:luac.exe luac.o print.o lua5.2-static.lib</pre>
+<ul>
+<li>Save this file as build.bat. MAKE SURE you select “All types” in the “Save as Type” section if you are doing this from Notepad. Or else Notepad will assume this is just another text file.</li>
+<li>The above .bat file has necessary commands and operations that needs for the compilation to take place. WARNING: Those who are using in Operating System other than Windows this will not work.</li>
+<li>In the above code I have my version set at 5.2. Make sure you change yours according to the version you downloaded.</li>
+<li>After that go ahead and type “build.bat” to execute the recently made batch (.bat) file.</li>
+<li>You should see a lot of text scrolling up. This is perfectly normal.</li>
+<li>After the scrolling you should have your library file with some additional files, primarily the Lua executable file and dynamic library (.dll) file.</li>
+</ul>
+<p><b>Configuring Visual Studio. </b>We need to configure Visual Studio to let it know where and what libraries and header files to look for when compiling our project. Configuring Visual Studio after you have Lua library file is really simple.</p>
+<ul>
+<li>Open up Visual Studio and create a new project. (File-&gt;New-&gt;Project)</li>
+<li>Select an Empty Project and give it any name.</li>
+<li>Go to Projects-&gt;”Your project name” Settings.</li>
+</ul>
+<ul>
+<li>Navigate to Configuration Properties -&gt; C/C++ -&gt; General and under Additional Include Directories type the location to your src folder of your Lua directory. <i>Alternatively, you could have copied lua.h, lua.lib, lua.exe in single folder but I have left managing your folders up to you</i></li>
+</ul>
+<ul>
+<li>Again, under Configuration Properties-&gt;Linker-&gt;General, Additional Library Directories copy the same src location.</li>
+</ul>
+<ul>
+<li>In the same Linker section go to Input and add lua5.2.lib under “Additional Dependencies”.</li>
+</ul>
+<p><b>Setup the project folder.</b> We are not quite done yet. One last step before you can start embedding your Lua library is to copy “lua.dll” file that was generated in the “src” directory and paste it in your project folders. This file must be in the same folder where your program’s executable file loads, usually in Debug folder.</p>
+
+<div class="wpa" style="position: relative; width:300px; text-align: center; padding: 0; margin: 10px auto; overflow: hidden; clear: both;">
+<a style="position: absolute; text-align: left; display: block; font: 9px/1 sans-serif; text-decoration: underline;" href="http://en.wordpress.com/about-these-ads/" rel="nofollow">About these ads</a>
+<script type="text/javascript">
+		var wpcom_adclk_hovering = false;
+		var wpcom_adclk_recorded = false;
+		var wpcom_adclk_theme = "Able";
+		var wpcom_adclk_slot = "wpcom_below_post";
+		var wpcom_adclk_network = ( typeof wpcom_adclk_network === "undefined" ) ? "" : wpcom_adclk_network ;
+
+		jQuery(document).ready( function() {
+			function wpcom_adclk_hover_yes() { wpcom_adclk_hovering = true; }
+			function wpcom_adclk_hover_no() { wpcom_adclk_hovering = false; }
+			jQuery(".wpa").click(wpcom_adclk_click);
+			jQuery(".wpa iframe").hover( wpcom_adclk_hover_yes, wpcom_adclk_hover_no );
+			jQuery(".wpa object").hover( wpcom_adclk_hover_yes, wpcom_adclk_hover_no );
+
+			jQuery(window).blur( function() {
+				if ( wpcom_adclk_hovering ) { wpcom_adclk_click(); }
+			});
+		});
+
+		function wpcom_adclk_impression() {
+			var stat_gif = document.location.protocol + "//stats.wordpress.com/g.gif?v=wpcom-no-pv";
+			stat_gif += "&x_ads_imp_theme=" + wpcom_adclk_theme;
+			stat_gif += "&x_ads_imp_placement="+wpcom_adclk_slot;
+			stat_gif += "&x_ads_imp_network=" + wpcom_adclk_network;
+			stat_gif += "&x_ads_imp_theme_network="+wpcom_adclk_theme+"_"+wpcom_adclk_network;
+			new Image().src = stat_gif + "&baba=" + Math.random();
+			return true;
+		}
+
+		function wpcom_adclk_click() {
+			if (wpcom_adclk_recorded) { return true; } // no double counting
+			var stat_gif = document.location.protocol + "//stats.wordpress.com/g.gif?v=wpcom-no-pv";
+			stat_gif += "&x_ads_click_theme=" + wpcom_adclk_theme;
+			stat_gif += "&x_ads_click_placement="+wpcom_adclk_slot;
+			stat_gif += "&x_ads_click_network=" + wpcom_adclk_network;
+			stat_gif += "&x_ads_click_theme_network="+wpcom_adclk_theme+"_"+wpcom_adclk_network;
+
+			new Image().src = stat_gif + "&baba=" + Math.random();
+			wpcom_adclk_recorded = true;
+			var now=new Date(); var end=now.getTime()+250;
+			while(true){now=new Date();if(now.getTime()>end){break;}}
+			return true;
+		}
+	
+if ( typeof GA_googleAddAttr == 'function' ) {
+GA_googleAddAttr("AdOpt", "1");
+GA_googleAddAttr("Origin", "other");
+GA_googleAddAttr("LangId", "1");
+GA_googleAddAttr("Domain", "gamejournalofyojan.wordpress.com");
+GA_googleAddAttr("BlogId", "41025932");
+GA_googleAddAttr("PageURL", "http://gamejournalofyojan.wordpress.com/2012/12/17/how-to-embed-lua-in-c-on-visual-studio/");
+GA_googleAddAttr("Autotag", "technology");
+GA_googleAddAttr("Tag", "beginner");
+GA_googleAddAttr("Tag", "c");
+GA_googleAddAttr("Tag", "game-programming");
+GA_googleAddAttr("Tag", "lua");
+GA_googleAddAttr("Tag", "tutorial");
+GA_googleAddAttr("Tag", "visual-studio");
+GA_googleAddAttr("Tag", "windows");
+GA_googleAddAttr("theme_bg", "ffffff");
+GA_googleAddAttr("theme_border", "e6e6e6");
+GA_googleAddAttr("theme_text", "323232");
+GA_googleAddAttr("theme_link", "0d3d9b");
+GA_googleAddAttr("theme_url", "0d3d9b");
+GA_googleAddAdSensePageAttr("google_page_url", "http://gamejournalofyojan.wordpress.com/2012/12/17/how-to-embed-lua-in-c-on-visual-studio/");
+GA_googleFillSlot("wpcom_below_post");
+}
+</script>
+</div>
+<style type="text/css">
+div.wpa>div { margin-top: 1em; } #google_ads_div_wpcom_below_post_adsafe_ad_container { display: block !important; }
+</style>
+<script type="text/javascript">
+jQuery( window ).load( function() {
+    if ( jQuery(".wpa script[src*='virool.com']").length > 0 || jQuery(".wpa script[src*='shareth.ru']").length > 0 || jQuery(".wpa iframe[src*='boomvideo.tv']").length > 0 || jQuery(".wpa iframe[src*='viewablemedia.net']").length > 0 || jQuery(".wpa .sharethrough-placement").length > 0 ) {
+        jQuery( '.wpa' ).css( 'width', '400px' );
+    }
+setTimeout(function(){if(typeof GS_googleAddAdSenseService !== 'function'){new Image().src=document.location.protocol+"//stats.wordpress.com/g.gif?v=wpcom-no-pv&x_noads=adblock&baba="+Math.random()}},100);
+} );
+</script>
+<div id="jp-post-flair" class="sharedaddy sd-like-enabled sd-sharing-enabled"><div class="sharedaddy sd-sharing-enabled"><div class="robots-nocontent sd-block sd-social sd-social-icon-text sd-sharing"><h3 class="sd-title">Share this:</h3><div class="sd-content"><ul><li class="share-twitter"><a rel="nofollow" class="share-twitter sd-button share-icon" href="http://gamejournalofyojan.wordpress.com/2012/12/17/how-to-embed-lua-in-c-on-visual-studio/?share=twitter" title="Click to share on Twitter" id="sharing-twitter-446"><span>Twitter</span></a></li><li class="share-facebook"><a rel="nofollow" class="share-facebook sd-button share-icon" href="http://gamejournalofyojan.wordpress.com/2012/12/17/how-to-embed-lua-in-c-on-visual-studio/?share=facebook" title="Share on Facebook" id="sharing-facebook-446"><span>Facebook</span></a></li><li class="share-end"></li></ul></div></div></div><div class='sharedaddy sd-block sd-like jetpack-likes-widget-wrapper jetpack-likes-widget-unloaded' id='like-post-wrapper-41025932-446-534c5309e2fb0' data-src='//widgets.wp.com/likes/#blog_id=41025932&amp;post_id=446&amp;origin=gamejournalofyojan.wordpress.com&amp;obj_id=41025932-446-534c5309e2fb0' data-name='like-post-frame-41025932-446-534c5309e2fb0'><h3 class='sd-title'>Like this:</h3><div class='likes-widget-placeholder post-likes-widget-placeholder' style='height:55px'><span class='button'><span>Like</span></span> <span class="loading">Loading...</span></div><span class='sd-text-color'></span><a class='sd-link-color'></a></div></div>			</div><!-- .entry-content -->
+
+	<footer class="entry-meta">
+		This entry was tagged <a href="http://gamejournalofyojan.wordpress.com/tag/beginner/" rel="tag">beginner</a>, <a href="http://gamejournalofyojan.wordpress.com/tag/c/" rel="tag">c++</a>, <a href="http://gamejournalofyojan.wordpress.com/tag/game-programming/" rel="tag">game programming</a>, <a href="http://gamejournalofyojan.wordpress.com/tag/lua/" rel="tag">lua</a>, <a href="http://gamejournalofyojan.wordpress.com/tag/tutorial/" rel="tag">tutorial</a>, <a href="http://gamejournalofyojan.wordpress.com/tag/visual-studio/" rel="tag">visual studio</a>, <a href="http://gamejournalofyojan.wordpress.com/tag/windows/" rel="tag">windows</a>. Bookmark the <a href="http://gamejournalofyojan.wordpress.com/2012/12/17/how-to-embed-lua-in-c-on-visual-studio/" title="Permalink to How to embed Lua in C++ on Visual&nbsp;Studio" rel="bookmark">permalink</a>.
+			</footer><!-- .entry-meta -->
+</article><!-- #post-## -->
+
+				
+		<nav role="navigation" id="nav-below" class="site-navigation post-navigation">
+			<h1 class="assistive-text">Post navigation</h1>
+
+							<div class="nav-previous"><a href="http://gamejournalofyojan.wordpress.com/2012/11/27/post-analysis-of-my-presentable-demo-game/" rel="prev"><span class="meta-nav">&larr;</span> Post analysis of my demo&nbsp;game.</a></div>			
+					</nav><!-- #nav-below -->
+
+	
+			
+	<div id="comments" class="comments-area">
+
+	
+			<h2 class="comments-title">
+			2 thoughts on &ldquo;<span>How to embed Lua in C++ on Visual&nbsp;Studio</span>&rdquo;		</h2>
+
+		
+		<ol class="commentlist">
+				<li class="comment even thread-even depth-1 highlander-comment" id="li-comment-41">
+		<article id="comment-41" class="comment">
+			<footer>
+				<div class="comment-author vcard">
+					<img alt='' src='http://1.gravatar.com/avatar/13c99cbc00d580cb0bb3d58a56cced1f?s=52&#038;d=identicon&#038;r=G' class='avatar avatar-52' height='52' width='52' />					<cite class="fn">Vladimir</cite> <span class="says">says:</span>				</div><!-- .comment-author .vcard -->
+				
+				<div class="comment-meta commentmetadata">
+					<a href="http://gamejournalofyojan.wordpress.com/2012/12/17/how-to-embed-lua-in-c-on-visual-studio/comment-page-1/#comment-41"><time pubdate datetime="2013-04-29T12:00:36+00:00">
+					April 29, 2013 at 12:00 pm					</time></a>
+									</div><!-- .comment-meta .commentmetadata -->
+			</footer>
+
+			<div class="comment-content"><p>To build Lua5.2.2 I saved this build.bat in lua src folder, opened &#8220;Open Visual Studio Command Prompt&#8221;, cd &#8220;drivefolder&#8221; to src folder, executed build.bat. However print.o should be removed from batch file.</p>
+</div>
+
+			<div class="reply">
+				<a class='comment-reply-link' href='/2012/12/17/how-to-embed-lua-in-c-on-visual-studio/?replytocom=41#respond' onclick='return addComment.moveForm("comment-41", "41", "respond", "446")'>Reply</a>			</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	<ul class="children">
+	<li class="comment odd alt depth-2 highlander-comment" id="li-comment-54">
+		<article id="comment-54" class="comment">
+			<footer>
+				<div class="comment-author vcard">
+					<img alt='' src='http://2.gravatar.com/avatar/225940ddd2d2055869a059e6ee188b8c?s=52&#038;d=identicon&#038;r=G' class='avatar avatar-52' height='52' width='52' />					<cite class="fn"><a href='http://gravatar.com/monkery' rel='external nofollow' class='url'>monkery</a></cite> <span class="says">says:</span>				</div><!-- .comment-author .vcard -->
+				
+				<div class="comment-meta commentmetadata">
+					<a href="http://gamejournalofyojan.wordpress.com/2012/12/17/how-to-embed-lua-in-c-on-visual-studio/comment-page-1/#comment-54"><time pubdate datetime="2014-01-03T13:01:02+00:00">
+					January 3, 2014 at 1:01 pm					</time></a>
+									</div><!-- .comment-meta .commentmetadata -->
+			</footer>
+
+			<div class="comment-content"><p>Happened same here&#8230;I am trying to use 5.2.3, at the end of the line it said &#8220;cannot open input file &#8216;print.o&#8217;&#8221;</p>
+</div>
+
+			<div class="reply">
+				<a class='comment-reply-link' href='/2012/12/17/how-to-embed-lua-in-c-on-visual-studio/?replytocom=54#respond' onclick='return addComment.moveForm("comment-54", "54", "respond", "446")'>Reply</a>			</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+		</ol><!-- .commentlist -->
+
+		
+	
+	
+									<div id="respond" class="comment-respond">
+				<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="/2012/12/17/how-to-embed-lua-in-c-on-visual-studio/#respond" style="display:none;">Cancel reply</a></small></h3>
+									<form action="http://gamejournalofyojan.wordpress.com/wp-comments-post.php" method="post" id="commentform" class="comment-form">
+																										
+
+
+												<input type="hidden" id="highlander_comment_nonce" name="highlander_comment_nonce" value="b9aab4dd70" /><input type="hidden" name="_wp_http_referer" value="/2012/12/17/how-to-embed-lua-in-c-on-visual-studio/" />
+<input type="hidden" name="hc_post_as" id="hc_post_as" value="guest" />
+
+<div class="comment-form-field comment-textarea">
+	<label for="comment">Enter your comment here...</label>
+	<div id="comment-form-comment"><textarea id="comment" name="comment" title="Enter your comment here..."></textarea></div>
+</div>
+
+<div id="comment-form-identity">
+
+	<div id="comment-form-nascar">
+		<p>Fill in your details below or click an icon to log in:</p>
+		<ul>
+			<li class="selected" style="display:none;">
+				<a href="#comment-form-guest" id="postas-guest" title="Guest">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="#comment-form-load-service:WordPress.com" id="postas-wordpress" title="WordPress.com">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="#comment-form-load-service:Twitter" id="postas-twitter" title="Twitter">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="#comment-form-load-service:Facebook" id="postas-facebook" title="Facebook">
+					<span></span>
+				</a>
+			</li>
+			<li>
+			<iframe id="googleplus-sign-in" name="googleplus-sign-in" src="https://public-api.wordpress.com/connect/?googleplus-sign-in=http%3A%2F%2Fgamejournalofyojan.wordpress.com" width="24" height="24" scrolling="no" allowtransparency="true" seamless="seamless" frameborder="0"></iframe>
+			</li>
+		</ul>
+	</div>
+
+	<div id="comment-form-guest" class="comment-form-service selected">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+<a href="https://gravatar.com/site/signup/" target="_blank">				<img src="http://1.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=25&amp;d=identicon&amp;forcedefault=y&amp;r=G" alt="Gravatar" width="25" class="no-grav" />
+</a>			</div>
+
+				<div class="comment-form-fields">
+				<div class="comment-form-field comment-form-email">
+					<label for="email">Email <span class="required">(required)</span> <span class="nopublish">(Address never made public)</span></label>
+					<div class="comment-form-input"><input id="email" name="email" type="email" value="" /></div>
+				</div>
+				<div class="comment-form-field comment-form-author">
+					<label for="author">Name <span class="required">(required)</span></label>
+					<div class="comment-form-input"><input id="author" name="author" type="text" value="" /></div>
+				</div>
+				<div class="comment-form-field comment-form-url">
+					<label for="url">Website</label>
+					<div class="comment-form-input"><input id="url" name="url" type="text" value="" /></div>
+				</div>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-wordpress" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="http://s2.wp.com/wp-content/mu-plugins/highlander-comments/images/wplogo.png?m=1391188133g" alt="WordPress.com Logo" width="25" class="no-grav" />
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="wp_avatar" id="wordpress-avatar" class="comment-meta-wordpress" value="" />
+				<input type="hidden" name="wp_user_id" id="wordpress-user_id" class="comment-meta-wordpress" value="" />
+				<input type="hidden" name="wp_access_token" id="wordpress-access_token" class="comment-meta-wordpress" value="" />
+				<p class="comment-form-posting-as pa-wordpress"><strong></strong> You are commenting using your WordPress.com account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'wordpress' );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-twitter" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="http://1.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=25&amp;d=identicon&amp;forcedefault=y&amp;r=G" alt="Twitter picture" width="25" class="no-grav" />
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="twitter_avatar" id="twitter-avatar" class="comment-meta-twitter" value="" />
+				<input type="hidden" name="twitter_user_id" id="twitter-user_id" class="comment-meta-twitter" value="" />
+				<input type="hidden" name="twitter_access_token" id="twitter-access_token" class="comment-meta-twitter" value="" />
+				<p class="comment-form-posting-as pa-twitter"><strong></strong> You are commenting using your Twitter account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'twitter' );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-facebook" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="http://1.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=25&amp;d=identicon&amp;forcedefault=y&amp;r=G" alt="Facebook photo" width="25" class="no-grav" />
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="fb_avatar" id="facebook-avatar" class="comment-meta-facebook" value="" />
+				<input type="hidden" name="fb_user_id" id="facebook-user_id" class="comment-meta-facebook" value="" />
+				<input type="hidden" name="fb_access_token" id="facebook-access_token" class="comment-meta-facebook" value="" />
+				<p class="comment-form-posting-as pa-facebook"><strong></strong> You are commenting using your Facebook account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'facebook' );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-googleplus" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="http://1.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=25&amp;d=identicon&amp;forcedefault=y&amp;r=G" alt="Google+ photo" width="25" class="no-grav" />
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="googleplus_avatar" id="googleplus-avatar" class="comment-meta-googleplus" value="" />
+				<input type="hidden" name="googleplus_user_id" id="googleplus-user_id" class="comment-meta-googleplus" value="" />
+				<input type="hidden" name="googleplus_access_token" id="googleplus-access_token" class="comment-meta-googleplus" value="" />
+				<p class="comment-form-posting-as pa-googleplus"><strong></strong> You are commenting using your Google+ account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'googleplus' );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+
+	<div id="comment-form-load-service" class="comment-form-service">
+		<div class="comment-form-posting-as-cancel"><a href="javascript:HighlanderComments.cancelExternalWindow();">Cancel</a></div>
+		<p>Connecting to %s</p>
+	</div>
+
+	
+</div>
+
+<script type="text/javascript">
+var highlander_expando_javascript = function(){
+	var input = document.createElement( 'input' ),
+	    comment = jQuery( '#comment' );
+
+	if ( 'placeholder' in input ) {
+		comment.attr( 'placeholder', jQuery( '.comment-textarea label' ).remove().text() );
+	}
+
+	// Expando Mode: start small, then auto-resize on first click + text length
+	jQuery( '#comment-form-identity' ).hide();
+	jQuery( '#comment-form-subscribe' ).hide();
+	jQuery( '#commentform .form-submit' ).hide();
+
+	comment.css( { 'height':'10px' } ).one( 'focus', function() {
+		var timer = setInterval( HighlanderComments.resizeCallback, 10 )
+		jQuery( this ).animate( { 'height': HighlanderComments.initialHeight } ).delay( 100 ).queue( function(n) { clearInterval( timer ); HighlanderComments.resizeCallback(); n(); } );
+		jQuery( '#comment-form-identity' ).slideDown();
+		jQuery( '#comment-form-subscribe' ).slideDown();
+		jQuery( '#commentform .form-submit' ).slideDown();
+	});
+}
+jQuery(document).ready( highlander_expando_javascript );
+</script>
+
+<div id="comment-form-subscribe">
+	<p class="comment-subscription-form"><input type="checkbox" name="subscribe" id="subscribe" value="subscribe" style="width: auto;" tabindex="6"/> <label class="subscribe-label" id="subscribe-label" for="subscribe" style="display: inline;">Notify me of follow-up comments via email.</label></p></div>
+
+												<p class="form-submit">
+							<input name="submit" type="submit" id="comment-submit" value="Post Comment" />
+							<input type='hidden' name='comment_post_ID' value='446' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+						</p>
+						
+<input type="hidden" name="genseq" value="1397510921" />
+<p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="b90294eb6a" /></p><script type='text/javascript' src='http://s2.wp.com/wp-content/mu-plugins/akismet-2.5/form.js?m=1308783962g'></script>
+<p style="display: none;"><input type="hidden" id="ak_js" name="ak_js" value="73"/></p>					</form>
+							</div><!-- #respond -->
+			<div style="clear: both"></div>
+</div><!-- #comments .comments-area -->
+
+		
+		</div><!-- #content -->
+	</div><!-- #primary .site-content -->
+
+
+	<div id="secondary" class="widget-area" role="complementary">
+		<aside id="search-2" class="widget widget_search"><form method="get" id="searchform" action="http://gamejournalofyojan.wordpress.com/" role="search">
+	<label for="s" class="assistive-text">Search</label>
+	<input type="text" class="field" name="s" id="s" placeholder="Search &hellip;" />
+	<input type="submit" class="submit" name="submit" id="searchsubmit" value="Search" />
+</form></aside>		<aside id="recent-posts-2" class="widget widget_recent_entries">		<h1 class="widget-title">Recent Posts</h1>		<ul>
+					<li>
+				<a href="http://gamejournalofyojan.wordpress.com/2012/12/17/how-to-embed-lua-in-c-on-visual-studio/">How to embed Lua in C++ on Visual&nbsp;Studio</a>
+						</li>
+					<li>
+				<a href="http://gamejournalofyojan.wordpress.com/2012/11/27/post-analysis-of-my-presentable-demo-game/">Post analysis of my demo&nbsp;game.</a>
+						</li>
+					<li>
+				<a href="http://gamejournalofyojan.wordpress.com/2012/10/06/what-is-embedding-lua-and-luabind/">Difference between embedding Lua and Luabind in&nbsp;C++?</a>
+						</li>
+					<li>
+				<a href="http://gamejournalofyojan.wordpress.com/2012/10/03/before-there-was-hello-world-there-was-pong/">Before &#8220;hello world&#8221; there was&nbsp;Pong.</a>
+						</li>
+				</ul>
+		</aside><aside id="archives-2" class="widget widget_archive"><h1 class="widget-title">Archives</h1>		<ul>
+	<li><a href='http://gamejournalofyojan.wordpress.com/2012/12/'>December 2012</a></li>
+	<li><a href='http://gamejournalofyojan.wordpress.com/2012/11/'>November 2012</a></li>
+	<li><a href='http://gamejournalofyojan.wordpress.com/2012/10/'>October 2012</a></li>
+		</ul>
+</aside><aside id="categories-2" class="widget widget_categories"><h1 class="widget-title">Categories</h1>		<ul>
+	<li class="cat-item cat-item-1"><a href="http://gamejournalofyojan.wordpress.com/category/uncategorized/" title="View all posts filed under Uncategorized">Uncategorized</a>
+</li>
+		</ul>
+</aside><aside id="meta-2" class="widget widget_meta"><h1 class="widget-title">Meta</h1>			<ul>
+			<li><a href="http://wordpress.com/signup/?ref=wplogin">Register</a></li>			<li><a href="http://gamejournalofyojan.wordpress.com/wp-login.php">Log in</a></li>
+			<li><a href="http://gamejournalofyojan.wordpress.com/feed/" title="Syndicate this site using RSS 2.0">Entries <abbr title="Really Simple Syndication">RSS</abbr></a></li>
+			<li><a href="http://gamejournalofyojan.wordpress.com/comments/feed/" title="The latest comments to all posts in RSS">Comments <abbr title="Really Simple Syndication">RSS</abbr></a></li>
+<li><a href="http://wordpress.com/" title="Powered by WordPress, state-of-the-art semantic personal publishing platform.">WordPress.com</a></li>			</ul>
+</aside>	</div><!-- #secondary -->
+
+
+		</div><!-- #main -->
+
+		<footer id="colophon" class="site-footer" role="contentinfo">
+			
+			<div class="site-info">
+				<a href="http://wordpress.com/?ref=footer">Blog at WordPress.com</a>.
+				<span class="sep"> | </span>
+				<a href="http://theme.wordpress.com/themes/able/" title="Learn more about this theme">The Able Theme</a>.			</div><!-- .site-info -->
+		</footer><!-- #colophon .site-footer -->
+	</div><!-- #page-liner -->
+</div><!-- #page .hfeed .site -->
+
+<script type='text/javascript' src='//0.gravatar.com/js/gprofiles.js?ver=201416x'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var WPGroHo = {"my_hash":""};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://s2.wp.com/wp-content/mu-plugins/gravatar-hovercards/wpgroho.js?m=1380573781g'></script>
+
+	<script>
+		//initialize and attach hovercards to all gravatars
+		jQuery( document ).ready( function( $ ) {
+			Gravatar.profile_cb = function( hash, id ) {
+				WPGroHo.syncProfileData( hash, id );
+			};
+			Gravatar.my_hash = WPGroHo.my_hash;
+			Gravatar.init( 'body', '#wp-admin-bar-my-account' );
+		});
+	</script>
+
+		<div style="display:none">
+	<div class="grofile-hash-map-13c99cbc00d580cb0bb3d58a56cced1f">
+	</div>
+	<div class="grofile-hash-map-225940ddd2d2055869a059e6ee188b8c">
+	</div>
+	</div>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var HighlanderComments = {"loggingInText":"Logging In\u2026","submittingText":"Posting Comment\u2026","postCommentText":"Post Comment","connectingToText":"Connecting to %s","commentingAsText":"%1$s: You are commenting using your %2$s account.","logoutText":"Log Out","loginText":"Log In","connectURL":"http:\/\/gamejournalofyojan.wordpress.com\/public.api\/connect\/?action=request","logoutURL":"http:\/\/gamejournalofyojan.wordpress.com\/wp-login.php?action=logout&_wpnonce=a8790cfdc0","homeURL":"http:\/\/gamejournalofyojan.wordpress.com\/","postID":"446","gravDefault":"identicon","enterACommentError":"Please enter a comment","enterEmailError":"Please enter your email address here","invalidEmailError":"Invalid email address","enterAuthorError":"Please enter your name here","gravatarFromEmail":"This picture will show whenever you leave a comment. Click to customize it.","logInToExternalAccount":"Log in to use details from one of these accounts.","change":"Change","changeAccount":"Change Account","comment_registration":"0","userIsLoggedIn":"","isJetpack":"0"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://s0.wp.com/_static/??/wp-content/js/jquery/jquery.autoresize.js,/wp-content/mu-plugins/highlander-comments/script.js?m=1395185286j'></script>
+
+	<div id="bit" class="loggedout-follow-normal">
+		<a class="bsub" href="javascript:void(0)"><span id='bsub-text'>Follow</span></a>
+		<div id="bitsubscribe">
+
+					<h3><label for="loggedout-follow-field">Follow &ldquo;Game Journal&rdquo;</label></h3>
+
+			<form action="https://subscribe.wordpress.com" method="post" accept-charset="utf-8" id="loggedout-follow">
+			<p>Get every new post delivered to your Inbox.</p>
+
+			<p id="loggedout-follow-error" style="display: none;"></p>
+
+			
+			<p><input type="email" name="email" value="Enter your email address" onfocus='this.value=(this.value=="Enter your email address") ? "" : this.value;' onblur='this.value=(this.value=="") ? "Enter email address" : this.value;'  id="loggedout-follow-field"/></p>
+
+			<input type="hidden" name="action" value="subscribe"/>
+			<input type="hidden" name="blog_id" value="41025932"/>
+			<input type="hidden" name="source" value="http://gamejournalofyojan.wordpress.com/2012/12/17/how-to-embed-lua-in-c-on-visual-studio/"/>
+			<input type="hidden" name="sub-type" value="loggedout-follow"/>
+
+			<input type="hidden" id="_wpnonce" name="_wpnonce" value="27777c6f03" /><input type="hidden" name="_wp_http_referer" value="/2012/12/17/how-to-embed-lua-in-c-on-visual-studio/" />
+			<p id='bsub-subscribe-button'><input type="submit" value="Sign me up" /></p>
+			</form>
+					<div id='bsub-credit'><a href="http://wordpress.com/signup/?ref=lof">Powered by WordPress.com</a></div>
+		</div><!-- #bitsubscribe -->
+	</div><!-- #bit -->
+	<script type="text/javascript">
+	var skimlinks_pub_id = "725X584219"
+	var skimlinks_sitename = "gamejournalofyojan.wordpress.com";
+	</script>
+	<script type="text/javascript" src="http://s.skimresources.com/js/725X1342.skimlinks.js"></script>
+	<script type="text/javascript">
+		WPCOM_sharing_counts = {"http:\/\/gamejournalofyojan.wordpress.com\/2012\/12\/17\/how-to-embed-lua-in-c-on-visual-studio\/":446}	</script>
+		<script type="text/javascript">
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-twitter' ).on( 'click', function() {
+				window.open( jQuery(this).attr( 'href' ), 'wpcomtwitter', 'menubar=1,resizable=1,width=600,height=350' );
+				return false;
+			});
+		});
+		</script>
+				<script type="text/javascript">
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-facebook' ).on( 'click', function() {
+				window.open( jQuery(this).attr( 'href' ), 'wpcomfacebook', 'menubar=1,resizable=1,width=600,height=400' );
+				return false;
+			});
+		});
+		</script>
+				<iframe src='http://widgets.wp.com/likes/master.html?ver=20140227#ver=20140227&amp;mp6=1' scrolling='no' id='likes-master' name='likes-master' style='display:none;'></iframe>
+		<div id='likes-other-gravatars'><div class="likes-text"><span>%d</span> bloggers like this:</div><ul class="wpl-avatars sd-like-gravatars"></ul></div>
+		<script type="text/javascript">
+		//<![CDATA[
+			var jetpackLikesWidgetQueue = [];
+			var jetpackLikesWidgetBatch = [];
+			var jetpackLikesMasterReady = false;
+
+			function JetpackLikespostMessage( message, target ) {
+				if ( "string" === typeof message ){
+					try{
+						message = JSON.parse( message );
+					}
+					catch(e) {
+						return;
+					}
+				}
+
+				pm( {
+					target: target,
+					type: 'likesMessage',
+					data: message,
+					origin: '*'
+				} );
+			}
+
+			function JetpackLikesBatchHandler() {
+				var requests = [];
+				jQuery( 'div.jetpack-likes-widget-unloaded' ).each( function( i ) {
+					if ( jetpackLikesWidgetBatch.indexOf( this.id ) > -1 )
+						return;
+					jetpackLikesWidgetBatch.push( this.id );
+					var regex = /like-(post|comment)-wrapper-(\d+)-(\d+)-(\w+)/;
+					var match = regex.exec( this.id );
+					if ( ! match || match.length != 5 )
+						return;
+
+					var info = {
+						blog_id: match[2],
+						width:   this.width
+					};
+
+					if ( 'post' == match[1] ) {
+						info.post_id = match[3];
+					} else if ( 'comment' == match[1] ) {
+						info.comment_id = match[3];
+					}
+
+					info.obj_id = match[4];
+
+					requests.push( info );
+				});
+
+				if ( requests.length > 0 ) {
+					JetpackLikespostMessage( { event: 'initialBatch', requests: requests }, window.frames['likes-master'] );
+				}
+			}
+
+			function JetpackLikesMessageListener( event ) {
+				if ( "undefined" == typeof event.event )
+					return;
+
+				if ( 'masterReady' == event.event ) {
+					jQuery( document ).ready( function() {
+						jetpackLikesMasterReady = true;
+
+						var stylesData = {
+								event: 'injectStyles'
+						};
+
+						if ( jQuery( 'iframe.admin-bar-likes-widget' ).length > 0 ) {
+							JetpackLikespostMessage( { event: 'adminBarEnabled' }, window.frames[ 'likes-master' ] );
+
+							stylesData.adminBarStyles = {
+								background: jQuery( '#wpadminbar .quicklinks li#wp-admin-bar-wpl-like > a' ).css( 'background' ),
+								isRtl: ( 'rtl' == jQuery( '#wpadminbar' ).css( 'direction' ) )
+							};
+						}
+
+						if ( !window.addEventListener )
+							jQuery( '#wp-admin-bar-admin-bar-likes-widget' ).hide();
+
+						stylesData.textStyles = {
+							color: jQuery( '.sd-text-color').css( 'color' ),
+							fontFamily: jQuery( '.sd-text-color' ).css( 'font-family' ),
+							fontSize: jQuery( '.sd-text-color' ).css( 'font-size' ),
+							direction: jQuery( '.sd-text-color' ).css( 'direction' ),
+							fontWeight: jQuery( '.sd-text-color' ).css( 'font-weight' ),
+							fontStyle: jQuery( '.sd-text-color' ).css( 'font-style' ),
+							textDecoration: jQuery( '.sd-text-color' ).css('text-decoration')
+						};
+
+						stylesData.linkStyles = {
+							color: jQuery( '.sd-link-color' ).css('color'),
+							fontFamily: jQuery( '.sd-link-color' ).css('font-family'),
+							fontSize: jQuery( '.sd-link-color' ).css('font-size'),
+							textDecoration: jQuery( '.sd-link-color' ).css('text-decoration'),
+							fontWeight: jQuery( '.sd-link-color' ).css( 'font-weight' ),
+							fontStyle: jQuery( '.sd-link-color' ).css( 'font-style' )
+						};
+
+						JetpackLikespostMessage( stylesData, window.frames[ 'likes-master' ] );
+
+						JetpackLikesBatchHandler();
+
+						jQuery( document ).on( 'inview', 'div.jetpack-likes-widget-unloaded', function() {
+							jetpackLikesWidgetQueue.push( this.id );
+						});
+					});
+				}
+
+				if ( 'showLikeWidget' == event.event ) {
+					jQuery( '#' + event.id + ' .post-likes-widget-placeholder'  ).fadeOut( 'fast', function() {
+						jQuery( '#' + event.id + ' .post-likes-widget' ).fadeIn( 'fast', function() {
+							JetpackLikespostMessage( { event: 'likeWidgetDisplayed', blog_id: event.blog_id, post_id: event.post_id, obj_id: event.obj_id }, window.frames['likes-master'] );
+						});
+					});
+				}
+
+				if ( 'clickReblogFlair' == event.event ) {
+					wpcom_reblog.toggle_reblog_box_flair( event.obj_id );
+				}
+
+				if ( 'showOtherGravatars' == event.event ) {
+					var $container = jQuery( '#likes-other-gravatars' );
+					var $list = $container.find( 'ul' );
+
+					$container.hide();
+					$list.html( '' );
+
+					$container.find( '.likes-text span' ).text( event.total );
+
+					jQuery.each( event.likers, function( i, liker ) {
+						$list.append( '<li class="' + liker.css_class + '"><a href="' + liker.profile_URL + '" class="wpl-liker" rel="nofollow" target="_parent"><img src="' + liker.avatar_URL + '" alt="' + liker.name + '" width="30" height="30" style="padding-right: 3px;" /></a></li>');
+					} );
+
+					var offset = jQuery( "[name='" + event.parent + "']" ).offset();
+
+					$container.css( 'left', offset.left + event.position.left - 10 + 'px' );
+					$container.css( 'top', offset.top + event.position.top - 33 + 'px' );
+
+					var rowLength = Math.floor( event.width / 37 );
+					var height = ( Math.ceil( event.likers.length / rowLength ) * 37 ) + 13;
+					if ( height > 204 ) {
+						height = 204;
+					}
+
+					$container.css( 'height', height + 'px' );
+					$container.css( 'width', rowLength * 37 - 7 + 'px' );
+
+					$list.css( 'width', rowLength * 37 + 'px' );
+
+					$container.fadeIn( 'slow' );
+
+					var scrollbarWidth = $list[0].offsetWidth - $list[0].clientWidth;
+					if ( scrollbarWidth > 0 ) {
+						$container.width( $container.width() + scrollbarWidth );
+						$list.width( $list.width() + scrollbarWidth );
+					}
+				}
+			}
+
+			pm.bind( 'likesMessage', function(e) { JetpackLikesMessageListener(e); } );
+
+			jQuery( document ).click( function( e ) {
+				var $container = jQuery( '#likes-other-gravatars' );
+
+				if ( $container.has( e.target ).length === 0 ) {
+					$container.fadeOut( 'slow' );
+				}
+			});
+
+			function JetpackLikesWidgetQueueHandler() {
+				var wrapperID;
+				if ( ! jetpackLikesMasterReady ) {
+					setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+					return;
+				}
+
+				if ( jetpackLikesWidgetQueue.length > 0 ) {
+					// We may have a widget that needs creating now
+					var found = false;
+					while( jetpackLikesWidgetQueue.length > 0 ) {
+						// Grab the first member of the queue that isn't already loading.
+						wrapperID = jetpackLikesWidgetQueue.splice( 0, 1 )[0];
+						if ( jQuery( '#' + wrapperID ).hasClass( 'jetpack-likes-widget-unloaded' ) ) {
+							found = true;
+							break;
+						}
+					}
+					if ( ! found ) {
+						setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+						return;
+					}
+				} else if ( jQuery( 'div.jetpack-likes-widget-unloaded' ).length > 0 ) {
+					// Grab any unloaded widgets for a batch request
+					JetpackLikesBatchHandler();
+
+					// Get the next unloaded widget
+					wrapperID = jQuery( 'div.jetpack-likes-widget-unloaded' ).first()[0].id;
+					if ( ! wrapperID ) {
+						// Everything is currently loaded
+						setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+						return;
+					}
+				}
+
+				if ( 'undefined' === typeof wrapperID ) {
+					setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+					return;
+				}
+
+				var $wrapper = jQuery( '#' + wrapperID );
+				$wrapper.find( 'iframe' ).remove();
+
+				if ( $wrapper.hasClass( 'slim-likes-widget' ) ) {
+					$wrapper.find( '.post-likes-widget-placeholder' ).after( "<iframe class='post-likes-widget jetpack-likes-widget' name='" + $wrapper.data( 'name' ) + "' height='22px' width='68px' frameBorder='0' scrolling='no' src='" + $wrapper.data( 'src' ) + "'></iframe>" );
+				} else {
+					$wrapper.find( '.post-likes-widget-placeholder' ).after( "<iframe class='post-likes-widget jetpack-likes-widget' name='" + $wrapper.data( 'name' ) + "' height='55px' width='100%' frameBorder='0' src='" + $wrapper.data( 'src' ) + "'></iframe>" );
+				}
+
+				$wrapper.removeClass( 'jetpack-likes-widget-unloaded' ).addClass( 'jetpack-likes-widget-loading' );
+
+				$wrapper.find( 'iframe' ).load( function( e ) {
+					var $iframe = jQuery( e.target );
+					$wrapper.removeClass( 'jetpack-likes-widget-loading' ).addClass( 'jetpack-likes-widget-loaded' );
+
+					JetpackLikespostMessage( { event: 'loadLikeWidget', name: $iframe.attr( 'name' ), width: $iframe.width() }, window.frames[ 'likes-master' ] );
+
+					if ( $wrapper.hasClass( 'slim-likes-widget' ) ) {
+						$wrapper.find( 'iframe' ).Jetpack( 'resizeable' );
+					}
+				});
+				setTimeout( JetpackLikesWidgetQueueHandler, 250 );
+			}
+			JetpackLikesWidgetQueueHandler();
+		//]]>
+		</script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var recaptcha_options = {"lang":"en"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://s2.wp.com/_static/??-eJxdjEsOwjAMBS9E6iIQUhaIs6SpaR3ZTlQnfG5PWFRCrN5i5g08i4tZK2qFZDDjgyKW15DsAD+orihoUNoEYWL8qiaB2Qlq22XSyG3uWqcxS0fVbVj4PQjpf1GaK9wW0l7NVt2dA21ga9hIl3376SbX48mfR3/xfkwfXWU/wA=='></script>
+<script type="text/javascript">
+// <![CDATA[
+(function() {
+try{
+  if ( window.external &&'msIsSiteMode' in window.external) {
+    if (window.external.msIsSiteMode()) {
+      var jl = document.createElement('script');
+      jl.type='text/javascript';
+      jl.async=true;
+      jl.src='/wp-content/plugins/ie-sitemode/custom-jumplist.php';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(jl, s);
+    }
+  }
+}catch(e){}
+})();
+// ]]>
+</script><script src="http://s.stats.wordpress.com/w.js?21" type="text/javascript"></script>
+<script type="text/javascript">
+st_go({'blog':'41025932','v':'wpcom','tz':'0','user_id':'0','post':'446','subd':'gamejournalofyojan'});
+ex_go({'crypt':'UE5XaGUuOTlwaD85flAmcm1mcmZsaDhkV11YdTdvUG14Q2VDQTR4LlUsLi82dU1mai9BMmlCVVM1U0h6VG1VbThdNGhSVksuM0Y2fF9fck4vTENnT25VcGpzZmRQLnU0YnhrUT0ueGZjJXc5cjRXSFB5RHNfW2huPVdQU0R1M1JtcUlMX3E4UmVXS1RNJnFEdW9FN0xMNE5pQl1qbW9sazJ5dDQuLW1KdDFpJXRGaU1afjhkX25RUElET3U2dGl8M3JUdl8wZzdaUWctYX5QT0RRP2Fla3VaLFhkJV1QN05WWUFWSXU5XVt8TTJ2Njh5a24yaV1pSjJHK3pyMi1PLGw2Ql9nMkVyVysmbU1PU2M1V1E2WThyS2lqcCZqR1VKQ3ltTkErOEwtNl9MVzJhLGNlag=='});
+addLoadEvent(function(){linktracker_init('41025932',446);});
+	</script>
+<noscript><img src="http://stats.wordpress.com/b.gif?v=noscript" style="height:0px;width:0px;overflow:hidden" alt="" /></noscript>
+<script>
+if ( 'object' === typeof wpcom_mobile_user_agent_info ) {
+
+	wpcom_mobile_user_agent_info.init();
+	var mobileStatsQueryString = "";
+	
+	if( false !== wpcom_mobile_user_agent_info.matchedPlatformName )
+		mobileStatsQueryString += "&x_" + 'mobile_platforms' + '=' + wpcom_mobile_user_agent_info.matchedPlatformName;
+	
+	if( false !== wpcom_mobile_user_agent_info.matchedUserAgentName )
+		mobileStatsQueryString += "&x_" + 'mobile_devices' + '=' + wpcom_mobile_user_agent_info.matchedUserAgentName;
+	
+	if( wpcom_mobile_user_agent_info.isIPad() )
+		mobileStatsQueryString += "&x_" + 'ipad_views' + '=' + 'views';
+
+	if( "" != mobileStatsQueryString ) {
+		new Image().src = document.location.protocol + '//stats.wordpress.com/g.gif?v=wpcom-no-pv' + mobileStatsQueryString + '&baba=' + Math.random();
+	}
+	
+}
+</script>
+</body>
+</html>

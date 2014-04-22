@@ -1,6 +1,3 @@
-// Lua_Example.cpp : Defines the entry point for the console application.
-//
-
 #include <lua.hpp>
 #include <lauxlib.h>
 #include <lualib.h>
@@ -34,4 +31,3 @@ int main(int argc, char* argv[])
     
 	return 0;
 }
-
