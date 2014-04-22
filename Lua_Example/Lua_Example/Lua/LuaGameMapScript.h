@@ -10,6 +10,7 @@
 #define __LuaProject__LuaGameMapScript__
 
 #include <iostream>
+#include <map>
 
 /* Lua */
 #include <lua.hpp>
@@ -22,13 +23,20 @@ private:
     LuaGameMapScript(lua_State *lua);
     
 public:
-    static LuaGameMapScript *newInstance(std::string scriptPath);
+    static LuaGameMapScript *newInstance();
     
 public:
-    virtual GameMap *loadGameMap();
+    virtual GameMap *createNewGameMap(std::string scriptPath);
+    virtual void updateScene(GameMap &map, double timeElapsed);
+    
+private:
+    bool loadScript(std::string scriptPath);
+    void setEnvironmentFor(GameMap &map);
+    bool initializeMap(GameMap &map);
     
 private:
     lua_State *m_lua;
+    
     
 };
 

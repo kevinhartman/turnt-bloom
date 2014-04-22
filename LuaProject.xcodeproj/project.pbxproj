@@ -12,18 +12,41 @@
 		0A02D4571903547A0059C630 /* ScriptEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A02D44E1903547A0059C630 /* ScriptEngine.cpp */; };
 		0A02D4591903547B0059C630 /* LuaGameObjectScript.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A02D4531903547A0059C630 /* LuaGameObjectScript.cpp */; };
 		0A02D46219038FCC0059C630 /* LuaGameMapScript.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A02D46019038FCC0059C630 /* LuaGameMapScript.cpp */; };
+		0A02D478190601100059C630 /* LuaGameMapScript.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A02D46019038FCC0059C630 /* LuaGameMapScript.cpp */; };
+		0A02D479190601480059C630 /* GameMap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A02D4491903547A0059C630 /* GameMap.cpp */; };
+		0A02D47A1906014D0059C630 /* GameObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A02D44B1903547A0059C630 /* GameObject.cpp */; };
+		0A02D47B190601510059C630 /* ScriptEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A02D44E1903547A0059C630 /* ScriptEngine.cpp */; };
+		0A02D47C190601570059C630 /* LuaGameObjectScript.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A02D4531903547A0059C630 /* LuaGameObjectScript.cpp */; };
+		0A02D47D190601A20059C630 /* liblua.5.2.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A3244C718FC9A8500F480B7 /* liblua.5.2.3.dylib */; };
+		0A02D48219060ABD0059C630 /* game_maps in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0A02D48119060A2B0059C630 /* game_maps */; };
+		0A02D48319060AC10059C630 /* game_objects in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0A3244C918FD76A200F480B7 /* game_objects */; };
+		0A02D48419060AC80059C630 /* game_maps in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0A02D48119060A2B0059C630 /* game_maps */; };
 		0A3244C818FC9A8500F480B7 /* liblua.5.2.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A3244C718FC9A8500F480B7 /* liblua.5.2.3.dylib */; };
 		0A3244CA18FD76B800F480B7 /* game_objects in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0A3244C918FD76A200F480B7 /* game_objects */; };
 		0AA52F07190350B70056C5B9 /* Lua_Example.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0AA52F06190350B70056C5B9 /* Lua_Example.cpp */; };
+		0ABB579519060EA600953EDC /* TestLuaMapScript.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0ABB579219060EA600953EDC /* TestLuaMapScript.cpp */; };
+		0ABB579619060EA600953EDC /* TestRunner.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0ABB579419060EA600953EDC /* TestRunner.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		0A02D46C190600E90059C630 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 12;
+			dstPath = "";
+			dstSubfolderSpec = 6;
+			files = (
+				0A02D48319060AC10059C630 /* game_objects in CopyFiles */,
+				0A02D48219060ABD0059C630 /* game_maps in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		0A0E1BB018F091A800178116 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 12;
 			dstPath = "";
 			dstSubfolderSpec = 6;
 			files = (
+				0A02D48419060AC80059C630 /* game_maps in CopyFiles */,
 				0A3244CA18FD76B800F480B7 /* game_objects in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -43,13 +66,26 @@
 		0A02D46019038FCC0059C630 /* LuaGameMapScript.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LuaGameMapScript.cpp; sourceTree = "<group>"; };
 		0A02D46119038FCC0059C630 /* LuaGameMapScript.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LuaGameMapScript.h; sourceTree = "<group>"; };
 		0A02D46419038FEF0059C630 /* GameMapScript.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameMapScript.h; sourceTree = "<group>"; };
+		0A02D46E190600E90059C630 /* EngineTests */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = EngineTests; sourceTree = BUILT_PRODUCTS_DIR; };
+		0A02D48119060A2B0059C630 /* game_maps */ = {isa = PBXFileReference; lastKnownFileType = folder; name = game_maps; path = Lua_Example/Lua_Example/game_maps; sourceTree = "<group>"; };
 		0A0E1BB218F091A900178116 /* LuaProject */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = LuaProject; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A3244C718FC9A8500F480B7 /* liblua.5.2.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = liblua.5.2.3.dylib; path = ../../../../../../usr/local/Cellar/lua52/5.2.3/lib/liblua.5.2.3.dylib; sourceTree = "<group>"; };
 		0A3244C918FD76A200F480B7 /* game_objects */ = {isa = PBXFileReference; lastKnownFileType = folder; name = game_objects; path = Lua_Example/Lua_Example/game_objects; sourceTree = "<group>"; };
 		0AA52F06190350B70056C5B9 /* Lua_Example.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Lua_Example.cpp; path = Lua_Example/Lua_Example/Lua_Example.cpp; sourceTree = "<group>"; };
+		0ABB579219060EA600953EDC /* TestLuaMapScript.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestLuaMapScript.cpp; sourceTree = "<group>"; };
+		0ABB579319060EA600953EDC /* TestLuaMapScript.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestLuaMapScript.h; sourceTree = "<group>"; };
+		0ABB579419060EA600953EDC /* TestRunner.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestRunner.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		0A02D46B190600E90059C630 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0A02D47D190601A20059C630 /* liblua.5.2.3.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		0A0E1BAF18F091A800178116 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -102,6 +138,7 @@
 			isa = PBXGroup;
 			children = (
 				0A0E1BB218F091A900178116 /* LuaProject */,
+				0A02D46E190600E90059C630 /* EngineTests */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -109,17 +146,47 @@
 		0A0E1BBE18F0929C00178116 /* Project */ = {
 			isa = PBXGroup;
 			children = (
+				0A02D48119060A2B0059C630 /* game_maps */,
+				0A3244C918FD76A200F480B7 /* game_objects */,
+				0ABB579119060EA600953EDC /* Test */,
 				0AA52F06190350B70056C5B9 /* Lua_Example.cpp */,
 				0A02D4481903547A0059C630 /* Core */,
 				0A02D4501903547A0059C630 /* Lua */,
-				0A3244C918FD76A200F480B7 /* game_objects */,
 			);
 			name = Project;
+			sourceTree = "<group>";
+		};
+		0ABB579119060EA600953EDC /* Test */ = {
+			isa = PBXGroup;
+			children = (
+				0ABB579219060EA600953EDC /* TestLuaMapScript.cpp */,
+				0ABB579319060EA600953EDC /* TestLuaMapScript.h */,
+				0ABB579419060EA600953EDC /* TestRunner.cpp */,
+			);
+			name = Test;
+			path = Lua_Example/Lua_Example/Test;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		0A02D46D190600E90059C630 /* EngineTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0A02D474190600E90059C630 /* Build configuration list for PBXNativeTarget "EngineTests" */;
+			buildPhases = (
+				0A02D46A190600E90059C630 /* Sources */,
+				0A02D46B190600E90059C630 /* Frameworks */,
+				0A02D46C190600E90059C630 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = EngineTests;
+			productName = EngineTests;
+			productReference = 0A02D46E190600E90059C630 /* EngineTests */;
+			productType = "com.apple.product-type.tool";
+		};
 		0A0E1BB118F091A800178116 /* LuaProject */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0A0E1BBB18F091A900178116 /* Build configuration list for PBXNativeTarget "LuaProject" */;
@@ -159,11 +226,26 @@
 			projectRoot = "";
 			targets = (
 				0A0E1BB118F091A800178116 /* LuaProject */,
+				0A02D46D190600E90059C630 /* EngineTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
+		0A02D46A190600E90059C630 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0ABB579619060EA600953EDC /* TestRunner.cpp in Sources */,
+				0A02D479190601480059C630 /* GameMap.cpp in Sources */,
+				0A02D47C190601570059C630 /* LuaGameObjectScript.cpp in Sources */,
+				0ABB579519060EA600953EDC /* TestLuaMapScript.cpp in Sources */,
+				0A02D47B190601510059C630 /* ScriptEngine.cpp in Sources */,
+				0A02D478190601100059C630 /* LuaGameMapScript.cpp in Sources */,
+				0A02D47A1906014D0059C630 /* GameObject.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		0A0E1BAE18F091A800178116 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -180,6 +262,32 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
+		0A02D475190600E90059C630 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/usr/local/Cellar/lua52/5.2.3/lib,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		0A02D476190600E90059C630 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/usr/local/Cellar/lua52/5.2.3/lib,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		0A0E1BB918F091A900178116 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -287,6 +395,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		0A02D474190600E90059C630 /* Build configuration list for PBXNativeTarget "EngineTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0A02D475190600E90059C630 /* Debug */,
+				0A02D476190600E90059C630 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		0A0E1BAD18F091A800178116 /* Build configuration list for PBXProject "LuaProject" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

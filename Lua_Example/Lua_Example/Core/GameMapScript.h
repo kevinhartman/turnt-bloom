@@ -16,7 +16,8 @@
 class GameMapScript {
     
 public:
-    virtual GameMap *loadGameMap() = 0;
+    virtual GameMap *createNewGameMap(std::string scriptPath) = 0;
+    virtual void updateScene(GameMap &map, double timeElapsed) = 0;
 };
 
 #endif /* defined(__LuaProject__GameMapScript__) */
