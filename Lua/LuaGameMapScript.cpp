@@ -7,18 +7,13 @@
 //
 
 #include "LuaGameMapScript.h"
+#include "LuaHelpers.h"
 
 #include <lauxlib.h>
 #include <lualib.h>
 
-const char* const GLOBAL_POSITION =         "position";
-const char* const GLOBAL_DIRECTION =        "direction";
-const char* const GLOBAL_SPEED =            "speed";
-const char* const GLOBAL_EYELINE =          "eyeline";
-const char* const GLOBAL_FIELD_OF_VIEW =    "fieldOfView";
-const char* const GLOBAL_VISION_DEPTH =     "visionDepth";
-const char* const GLOBAL_BODY_RADIUS =      "bodyRadius";
-
+const char* const GLOBAL_GAME_OBJECTS = "gameObjects";
+const char* const GLOBAL_SCRIPT =       "script";
 
 LuaGameMapScript::LuaGameMapScript(lua_State *lua) : m_lua(lua) {}
 
@@ -118,21 +113,46 @@ bool
 LuaGameMapScript::initializeMap(GameMap &map) {
     // STUBBED
     
-    lua_getglobal(m_lua, GLOBAL_SPEED);
-    double speed = lua_tonumber(m_lua, -1);
-    printf("[C++] speed = %f\n", speed);
+    /* Get motion attributes */
+    lua_getglobal(m_lua, GLOBAL_GAME_OBJECTS);
+    //TODO: check nil for gameobjects
     
-    lua_getglobal(m_lua, GLOBAL_FIELD_OF_VIEW);
-    double fieldOfView = lua_tonumber(m_lua, -1);
-    printf("[C++] fieldOfView = %f\n", fieldOfView);
+    int objectIndex = 1;
+    lua_pushnumber(m_lua, objectIndex);
+    lua_gettable(m_lua, -2);
     
-    lua_getglobal(m_lua, GLOBAL_VISION_DEPTH);
-    double visionDepth = lua_tonumber(m_lua, -1);
-    printf("[C++] visionDepth = %f\n", visionDepth);
+    while (!lua_isnil(m_lua, -1)) {
+        
+        if (!lua_istable(m_lua, -1)) {
+            fprintf(stderr, "Invalid game object in map.\n");
+            
+            lua_pop(m_lua, 1); /* remove invalid object */
+            lua_pop(m_lua, 1); /* remove gameObjects table */
+            return false;
+        }
+        
+        lua_getfield(m_lua, -1, GLOBAL_SCRIPT);
+        
+        if (!lua_isfunction(m_lua, -1)) {
+            fprintf(stderr, "Invalid script specified in game object initializer.\n");
+            
+            lua_pop(m_lua, 1); /* remove invalid object */
+            lua_pop(m_lua, 1); /* remove gameObjects table */
+            return false;
+        }
+        
+        lua_setupvalue(m_lua, -1, -2);
+        
+        // TODO create and add GameObjects here
+        
+        objectIndex++;
+        lua_pop(m_lua, 1); /* remove script */
+        lua_pushnumber(m_lua, objectIndex);
+        lua_gettable(m_lua, -2);
+    }
     
-    lua_getglobal(m_lua, GLOBAL_BODY_RADIUS);
-    double bodyRadius = lua_tonumber(m_lua, -1);
-    printf("[C++] bodyRadius = %f\n", bodyRadius);
+    lua_pop(m_lua, 1);  /* remove the nil */
+    lua_pop(m_lua, 1);  /* remove the gameObjects table */
     
     return false;
     
