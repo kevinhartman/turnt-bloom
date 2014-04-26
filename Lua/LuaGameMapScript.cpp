@@ -14,34 +14,14 @@
 
 const char* const GLOBAL_GAME_OBJECTS = "gameObjects";
 const char* const GLOBAL_SCRIPT =       "script";
+const char* const GLOBAL_CAPTURE =      "capture";
 
 LuaGameMapScript::LuaGameMapScript(lua_State *lua) : m_lua(lua) {}
 
 LuaGameMapScript *
 LuaGameMapScript::newInstance() {
     
-    lua_State *lua = luaL_newstate();
-    
-    if (!lua) {
-        return nullptr;
-    }
-    
-    /* Lua libraries for GameMap scripts */
-    static const luaL_Reg lualibs[] =
-    {
-        { "base", luaopen_base },
-        { "io", luaopen_io },
-        { NULL, NULL}
-    };
-    
-    const luaL_Reg *lib = lualibs;
-    for(; lib->func != NULL; lib++)
-    {
-        lib->func(lua);
-        lua_settop(lua, 0);
-    }
-    
-    return new LuaGameMapScript(lua);
+    return nullptr;
 }
 
 bool
@@ -123,25 +103,45 @@ LuaGameMapScript::initializeMap(GameMap &map) {
     
     while (!lua_isnil(m_lua, -1)) {
         
+        /* verify current game object is a table */
         if (!lua_istable(m_lua, -1)) {
-            fprintf(stderr, "Invalid game object in map.\n");
+            fprintf(stderr, "** Error: Invalid game object.\n");
             
             lua_pop(m_lua, 1); /* remove invalid object */
             lua_pop(m_lua, 1); /* remove gameObjects table */
             return false;
         }
         
+        /* get the game object's script */
         lua_getfield(m_lua, -1, GLOBAL_SCRIPT);
         
+        /* verify script is a function */
         if (!lua_isfunction(m_lua, -1)) {
-            fprintf(stderr, "Invalid script specified in game object initializer.\n");
+            fprintf(stderr, "** Error: Invalid game object script.\n");
             
-            lua_pop(m_lua, 1); /* remove invalid object */
+            lua_pop(m_lua, 1); /* remove invalid script */
             lua_pop(m_lua, 1); /* remove gameObjects table */
             return false;
         }
         
-        lua_setupvalue(m_lua, -1, -2);
+        /* get the game object's capture */
+        lua_getfield(m_lua, -2, GLOBAL_CAPTURE);
+        
+        /* verify capture is a table */
+        if (!lua_istable(m_lua, -1)) {
+            fprintf(stderr, "** Error: Invalid game object capture.\n");
+            
+            lua_pop(m_lua, 1); /* remove invalid capture */
+            lua_pop(m_lua, 1); /* remove script */
+            lua_pop(m_lua, 1); /* remove gameObjects table */
+            return false;
+        }
+        
+        /* set script function's up-value to capture */
+        lua_setupvalue(m_lua, -2, 1); // TODO: URGENT read about this function.
+        
+        /* test call the script */
+        int result = lua_pcall(m_lua, 0, 0, 0);
         
         // TODO create and add GameObjects here
         
@@ -159,7 +159,7 @@ LuaGameMapScript::initializeMap(GameMap &map) {
 }
 
 GameMap *
-LuaGameMapScript::createNewGameMap(std::string scriptPath) {
+LuaGameMapScript::createNewGameMap(lua_State *lua) {
     
     /* create an empty table */
     lua_newtable(m_lua);
@@ -168,9 +168,9 @@ LuaGameMapScript::createNewGameMap(std::string scriptPath) {
     lua_setglobal(m_lua, "_ENV");
     
     /* attempt to load script into environment */
-    if (!loadScript(scriptPath)) {
-        return nullptr;
-    }
+//    if (!loadScript(scriptPath)) {
+//        return nullptr;
+//    }
     
     /* create a map */
     GameMap *map = new GameMap();
@@ -215,17 +215,17 @@ void
 LuaGameMapScript::updateScene(GameMap &map, double timeElapsed) {
     // TODO: this could be done better. maybe (N/D)^2, where D is cell divisions of map
     
-    std::map<GameObject *, std::vector<GameObject *> *> collisions;
-    std::map<GameObject *, std::vector<GameObject *> *> sightings;
+    std::map<GameActor *, std::vector<GameActor *> *> collisions;
+    std::map<GameActor *, std::vector<GameActor *> *> sightings;
     
     map.computeInteractions(collisions, sightings);
     
-    std::map<GameObject *, std::vector<GameObject *> *>::iterator iter;
+    std::map<GameActor *, std::vector<GameActor *> *>::iterator iter;
     
     /* call game object script with collision data */
     for (iter = collisions.begin(); iter != collisions.end(); ++iter) {
         
-        GameObject *object = iter->first;
+        GameActor *object = iter->first;
         
         // TODO: call script collision callback with iter->second
         // use script in m_map w.e
@@ -235,7 +235,7 @@ LuaGameMapScript::updateScene(GameMap &map, double timeElapsed) {
     /* call game object script with sighting data */
     for (iter = sightings.begin(); iter != sightings.end(); ++iter) {
         
-        GameObject *object = iter->first;
+        GameActor *object = iter->first;
         
         // TODO: call script sightings callback with iter->second
         

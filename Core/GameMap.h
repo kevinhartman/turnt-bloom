@@ -13,7 +13,7 @@
 #include <vector>
 #include <map>
 
-#include "GameObject.h"
+#include "GameActor.h"
 
 #endif /* defined(__LuaProject__GameMap__) */
 
@@ -23,9 +23,9 @@ public:
     
 public:
     void updateScene(double timeElapsed);
-    void computeInteractions(std::map<GameObject *, std::vector<GameObject *> *> &collisions,
-                             std::map<GameObject *, std::vector<GameObject *> *> &sightings);
+    void computeInteractions(std::map<GameActor *, std::vector<GameActor *> *> &collisions,
+                             std::map<GameActor *, std::vector<GameActor *> *> &sightings);
     
 private:
-    std::vector<GameObject *> m_gameObjects;
+    std::vector<GameActor *> m_gameActors;
 };

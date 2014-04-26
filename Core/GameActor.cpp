@@ -1,16 +1,16 @@
 //
-//  GameObject.cpp
+//  GameActor.cpp
 //  LuaProject
 //
 //  Created by Kevin Hartman on 4/17/14.
 //  Copyright (c) 2014 Kevin Hartman. All rights reserved.
 //
 
-#include "GameObject.h"
+#include "GameActor.h"
 #include <glm/gtx/norm.hpp>
 #include <glm/gtx/vector_angle.hpp>
 
-GameObject::GameObject() :
+GameActor::GameActor() :
 
     m_subscribers(),
 
@@ -26,7 +26,7 @@ GameObject::GameObject() :
 {}
 
 bool
-GameObject::isCollidingWith(GameObject &other) {
+GameActor::isCollidingWith(GameActor &other) {
     
     float distance2 = glm::distance2(m_position, other.m_position);
     float radiiSum2 = glm::pow((m_bodyRadius + other.m_bodyRadius), 2.0f);
@@ -35,7 +35,7 @@ GameObject::isCollidingWith(GameObject &other) {
 }
 
 bool
-GameObject::isSeeing(GameObject &other) {
+GameActor::isSeeing(GameActor &other) {
     
     // TODO: only detects if position of other is in view.
     // this should be expanded to see if other's physics body is in field of view

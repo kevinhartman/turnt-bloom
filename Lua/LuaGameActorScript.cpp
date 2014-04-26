@@ -1,12 +1,12 @@
 //
-//  LuaGameObjectScript.cpp
+//  LuaGameActorScript.cpp
 //  LuaProject
 //
 //  Created by Kevin Hartman on 4/19/14.
 //  Copyright (c) 2014 Kevin Hartman. All rights reserved.
 //
 
-#include "LuaGameObjectScript.h"
+#include "LuaGameActorScript.h"
 
 #include <lauxlib.h>
 #include <lualib.h>
@@ -20,10 +20,10 @@ const char* const GLOBAL_VISION_DEPTH =     "visionDepth";
 const char* const GLOBAL_BODY_RADIUS =      "bodyRadius";
 
 
-LuaGameObjectScript::LuaGameObjectScript(lua_State *lua) : m_lua(lua) {}
+LuaGameActorScript::LuaGameActorScript(lua_State *lua) : m_lua(lua) {}
 
-LuaGameObjectScript *
-LuaGameObjectScript::newInstance(std::string scriptPath) {
+LuaGameActorScript *
+LuaGameActorScript::newInstance(std::string scriptPath) {
     
     lua_State *lua = luaL_newstate();
     
@@ -31,7 +31,7 @@ LuaGameObjectScript::newInstance(std::string scriptPath) {
         return nullptr;
     }
     
-    /* Lua libraries for GameObject scripts */
+    /* Lua libraries for GameActor scripts */
     static const luaL_Reg lualibs[] =
     {
         { "base", luaopen_base },
@@ -66,11 +66,11 @@ LuaGameObjectScript::newInstance(std::string scriptPath) {
     }
 
     
-    return new LuaGameObjectScript(lua);
+    return new LuaGameActorScript(lua);
 }
 
-GameObject *
-LuaGameObjectScript::loadGameObject() {
+GameActor *
+LuaGameActorScript::loadGameActor() {
     // TODO: stubbed
     
     
@@ -113,31 +113,31 @@ LuaGameObjectScript::loadGameObject() {
 }
 
 void
-LuaGameObjectScript::onError(int errorCode) {
+LuaGameActorScript::onError(int errorCode) {
     // TODO: stubbed
     return;
 }
 
 bool
-LuaGameObjectScript::onCollide(GameObject &other) {
+LuaGameActorScript::onCollide(GameActor &other) {
     // TODO: stubbed
     return false;
 }
 
 bool
-LuaGameObjectScript::onSight(GameObject &other) {
+LuaGameActorScript::onSight(GameActor &other) {
     // TODO: stubbed
     return false;
 }
 
 bool
-LuaGameObjectScript::onTargetUpdate(GameObject &other) {
+LuaGameActorScript::onTargetUpdate(GameActor &other) {
     // TODO: stubbed
     return false;
 }
 
 void
-LuaGameObjectScript::onKeyboard() {
+LuaGameActorScript::onKeyboard() {
     // TODO: stubbed
     return;
 }

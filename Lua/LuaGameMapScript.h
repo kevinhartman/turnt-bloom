@@ -26,7 +26,7 @@ public:
     static LuaGameMapScript *newInstance();
     
 public:
-    virtual GameMap *createNewGameMap(std::string scriptPath);
+    virtual GameMap *createNewGameMap(lua_State *lua);
     virtual void updateScene(GameMap &map, double timeElapsed);
     
 private:

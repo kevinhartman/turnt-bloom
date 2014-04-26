@@ -8,39 +8,39 @@
 
 #include "GameMap.h"
 
-GameMap::GameMap() : m_gameObjects() {
-    // TODO: put some test game objects in here for script project
+GameMap::GameMap() : m_gameActors() {
+    // TODO: put some test game actors in here for script project
 }
 
 void
-GameMap::computeInteractions(std::map<GameObject *, std::vector<GameObject *> *> &collisions,
-                             std::map<GameObject *, std::vector<GameObject *> *> &sightings) {
+GameMap::computeInteractions(std::map<GameActor *, std::vector<GameActor *> *> &collisions,
+                             std::map<GameActor *, std::vector<GameActor *> *> &sightings) {
     
-    for (int i = 0; i < m_gameObjects.size(); i++) {
+    for (int i = 0; i < m_gameActors.size(); i++) {
         
-        GameObject *object = m_gameObjects.at(i);
+        GameActor *actor = m_gameActors.at(i);
         
-        /* initialize lists of interactions for this object */
-        collisions[object] = new std::vector<GameObject *>();
-        sightings[object] = new std::vector<GameObject *>();
+        /* initialize lists of interactions for this actor */
+        collisions[actor] = new std::vector<GameActor *>();
+        sightings[actor] = new std::vector<GameActor *>();
         
-        for (GameObject *anotherObject : m_gameObjects) {
+        for (GameActor *anotherActor : m_gameActors) {
             
             /* skip self */
-            if (object == anotherObject) {
+            if (actor == anotherActor) {
                 continue;
             }
             
             /* update collisions */
-            if (object->isCollidingWith(*anotherObject)) {
+            if (actor->isCollidingWith(*anotherActor)) {
                 
-                collisions[object]->push_back(anotherObject);
+                collisions[actor]->push_back(anotherActor);
             }
             
             /* update sightings */
-            if (object->isSeeing(*anotherObject)) {
+            if (actor->isSeeing(*anotherActor)) {
                 
-                sightings[object]->push_back(anotherObject);
+                sightings[actor]->push_back(anotherActor);
             }
         }
     }
@@ -51,26 +51,26 @@ void
 GameMap::updateScene(double timeElapsed) {
     // TODO: this could be done better. maybe (N/D)^2, where D is cell divisions of map
     
-    std::map<GameObject *, std::vector<GameObject *> *> collisions;
-    std::map<GameObject *, std::vector<GameObject *> *> sightings;
+    std::map<GameActor *, std::vector<GameActor *> *> collisions;
+    std::map<GameActor *, std::vector<GameActor *> *> sightings;
     
     computeInteractions(collisions, sightings);
     
-    std::map<GameObject *, std::vector<GameObject *> *>::iterator iter;
+    std::map<GameActor *, std::vector<GameActor *> *>::iterator iter;
     
-    /* call game object script with collision data */
+    /* call game actor script with collision data */
     for (iter = collisions.begin(); iter != collisions.end(); ++iter) {
         
-        GameObject *object = iter->first;
+        GameActor *actor = iter->first;
         
         // TODO: call script collision callback with iter->second
         
     }
     
-    /* call game object script with sighting data */
+    /* call game actor script with sighting data */
     for (iter = sightings.begin(); iter != sightings.end(); ++iter) {
         
-        GameObject *object = iter->first;
+        GameActor *actor = iter->first;
         
         // TODO: call script sightings callback with iter->second
         

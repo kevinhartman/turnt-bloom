@@ -17,7 +17,7 @@ TestLuaMapScript::test() {
     
     assert(script);
     
-    GameMap *map = script->createNewGameMap("game_maps/test_map.lua");
+    //GameMap *map = script->createNewGameMap("game_maps/test_map.lua");
     
     assert(map);
     

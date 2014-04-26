@@ -1,5 +1,7 @@
-print('Hello Lua! :)')
+print('Game object executing! :)')
 
+print(fieldOfView)
+print(gameObjects)
 
 function onError()
     print('[Lua] onError called.')
