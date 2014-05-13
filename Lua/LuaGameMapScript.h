@@ -15,28 +15,24 @@
 /* Lua */
 #include <lua.hpp>
 
-#include "GameMapScript.h"
+#include "GameMap.h"
+#include "LuaGameActorScript.h"
 
-class LuaGameMapScript : GameMapScript {
-    
-private:
-    LuaGameMapScript(lua_State *lua);
+class LuaGameMapScript {
     
 public:
-    static LuaGameMapScript *newInstance();
+    LuaGameMapScript();
     
 public:
-    virtual GameMap *createNewGameMap(lua_State *lua);
-    virtual void updateScene(GameMap &map, double timeElapsed);
+    GameMap *createNewGameMap(lua_State *lua);
+    void updateScene(lua_State *lua, GameMap &map, double timeElapsed);
     
 private:
-    bool loadScript(std::string scriptPath);
-    void setEnvironmentFor(GameMap &map);
-    bool initializeMap(GameMap &map);
+    bool getLuaGameMap(lua_State *lua, GameMap &map);
+    bool initializeMap(lua_State *lua, GameMap &map);
     
 private:
-    lua_State *m_lua;
-    
+    LuaGameActorScript m_actorScript;
     
 };
 

@@ -18,6 +18,7 @@
 #endif /* defined(__LuaProject__GameMap__) */
 
 class GameMap {
+    
 public:
     GameMap();
     
@@ -25,6 +26,7 @@ public:
     void updateScene(double timeElapsed);
     void computeInteractions(std::map<GameActor *, std::vector<GameActor *> *> &collisions,
                              std::map<GameActor *, std::vector<GameActor *> *> &sightings);
+    bool addGameActor(GameActor &actor);
     
 private:
     std::vector<GameActor *> m_gameActors;

@@ -12,6 +12,12 @@ GameMap::GameMap() : m_gameActors() {
     // TODO: put some test game actors in here for script project
 }
 
+bool
+GameMap::addGameActor(GameActor &actor) {
+    m_gameActors.push_back(&actor);
+    return true;
+}
+
 void
 GameMap::computeInteractions(std::map<GameActor *, std::vector<GameActor *> *> &collisions,
                              std::map<GameActor *, std::vector<GameActor *> *> &sightings) {

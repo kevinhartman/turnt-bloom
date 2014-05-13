@@ -22,7 +22,9 @@ GameActor::GameActor() :
     m_fieldOfView(0.0f),
     m_visionDepth(0.0f),
     
-    m_bodyRadius(0.0f)
+    m_bodyRadius(0.0f),
+
+    m_verticies()
 {}
 
 bool

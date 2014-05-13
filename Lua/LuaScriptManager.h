@@ -13,6 +13,8 @@
 
 #include "ScriptManager.h"
 
+#include <lua.hpp>
+
 class LuaScriptManager : ScriptManager {
     
 private:
@@ -29,8 +31,14 @@ public:
     }
     
 public:
-    virtual bool init(/* game script */);
+    virtual bool init(std::string scriptPath);
     virtual void shutdown();
+    
+private:
+    static bool loadScript(lua_State *lua, std::string scriptPath);
+    
+private:
+    lua_State *m_lua;
     
 };
 

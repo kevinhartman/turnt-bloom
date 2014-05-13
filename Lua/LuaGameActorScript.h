@@ -14,29 +14,28 @@
 /* Lua */
 #include <lua.hpp>
 
-#include "GameActorScript.h"
+#include "GameActor.h"
 
-class LuaGameActorScript : GameActorScript {
-    
-private:
-    LuaGameActorScript(lua_State *lua);
+class LuaGameActorScript {
     
 public:
-    static LuaGameActorScript *newInstance(std::string scriptPath);
+    LuaGameActorScript();
     
 public:
-    virtual GameActor *loadGameActor();
+    GameActor *createNewGameActor(lua_State *lua);
     
-    virtual void onError(int errorCode);
+    void onError(int errorCode);
     
-    virtual bool onCollide(GameActor &other);
-    virtual bool onSight(GameActor &other);
-    virtual bool onTargetUpdate(GameActor &other);
+    bool onCollide(GameActor &other);
+    bool onSight(GameActor &other);
+    bool onTargetUpdate(GameActor &other);
     
-    virtual void onKeyboard();
+    void onKeyboard();
     
 private:
-    lua_State *m_lua;
+    void setEnvironmentFor(lua_State *lua, GameActor &actor);
+    bool initializeActor(lua_State *lua, GameActor &actor);
+    
 };
 
 #endif /* defined(__LuaProject__LuaGameActorScript__) */

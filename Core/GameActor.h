@@ -39,6 +39,9 @@ private:
     
     /* physics */
     float       m_bodyRadius;
+    
+    /* model */
+    std::vector<glm::vec4> m_verticies;
 };
 
 #endif /* defined(__LuaProject__GameActor__) */

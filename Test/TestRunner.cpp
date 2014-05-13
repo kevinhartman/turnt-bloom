@@ -9,11 +9,14 @@
 #include <iostream>
 
 #include "TestLuaMapScript.h"
+#include "TestLuaLogUtil.h"
 
+#include "LogManager.h"
 
 static void (*TESTS[])() =
 {
     TestLuaMapScript::test,
+    TestLuaLogUtil::test,
     nullptr /* sentinal */
 };
 
@@ -22,11 +25,16 @@ int main(int argc, char* argv[])
     
     fprintf(stdout, "TESTS RUNNING.\n");
     
+    /* initialize logger */
+    LogManager::getInstance()->init();
+    
     int testIndex = 0;
     
     while (TESTS[testIndex]) {
         TESTS[testIndex++]();
     }
+    
+    LogManager::getInstance()->shutdown();
     
 	return 0;
 }

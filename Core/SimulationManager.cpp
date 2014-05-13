@@ -12,6 +12,12 @@ void
 SimulationManager::run() {
     /* game loop here */
     
+    
+    
+    while (true) {
+        
+    }
+    
     for (int i = 0; i < 4; i++) {
         printf("Running iteration %d of game loop.\n", i);
     }
