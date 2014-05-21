@@ -10,16 +10,16 @@
 #include "LogManager.h"
 
 #include "TestLuaMapScript.h"
-#include "../Lua/LuaGameMapScript.h"
 #include "../Lua/LuaHelpers.h"
 #include "../Lua/LuaLogUtil.h"
+
+#define private public
+#include "../Lua/LuaGameMapScript.h"
 
 static void *TEST_STACK = nullptr;
 
 void
-TestLuaMapScript::test() {
-    
-    LogManager::debug("Running TestLuaMapScript.cpp");
+TestLuaMapScript::testMapCreate() {
     
     /* create a new lua state for this test */
     lua_State *lua = nullptr;
@@ -29,9 +29,9 @@ TestLuaMapScript::test() {
     lua_pushlightuserdata(lua, &TEST_STACK);
     
     /* load the test map */
-    assert(LuaHelpers::loadFile(lua, "game/game_maps/test_map.lua"));
-
-    /* printf out the up value of loaded file */
+    assert(LuaHelpers::loadFile(lua, "game/maps/test_map.lua"));
+    
+    /* print out the up value of loaded file */
     lua_getupvalue(lua, -1, 1);
     LogManager::debug(LuaLogUtil::dumpTable(lua));
     lua_pop(lua, 1);
@@ -46,5 +46,34 @@ TestLuaMapScript::test() {
     LogManager::debug(LuaLogUtil::dumpTable(lua));
     
     assert(lua_touserdata(lua, -1) == &TEST_STACK);
+}
+
+void
+TestLuaMapScript::testMapCreateAndReload() {
+    
+    /* create a new lua state for this test */
+    lua_State *lua = nullptr;
+    assert(TestUtils::createLuaState(&lua));
+    
+    /* load the test map */
+    assert(LuaHelpers::loadFile(lua, "game/maps/test_map.lua"));
+    
+    /* create a new GameMap using the loaded file */
+    LuaGameMapScript *script = new LuaGameMapScript();
+    GameMap *map = script->createNewGameMap(lua);
+    assert(map);
+    
+    /* Get Lua map instance from Script */
+    assert(script->getLuaGameMap(lua, *map));
+    
+}
+
+void
+TestLuaMapScript::test() {
+    
+    LogManager::debug("Running TestLuaMapScript.cpp");
+    
+    testMapCreate();
+    testMapCreateAndReload();
     
 }

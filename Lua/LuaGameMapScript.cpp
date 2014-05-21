@@ -128,7 +128,7 @@ LuaGameMapScript::initializeMap(lua_State *lua, GameMap &map) {
         }
         
         /* create actor with chunk */
-        GameActor *actor = /*m_actorScript.createNewGameActor(lua);*/ nullptr;
+        GameActor *actor = m_actorScript.createNewGameActor(lua);
         
         /* add actor to map */
         if (actor) {
@@ -138,7 +138,6 @@ LuaGameMapScript::initializeMap(lua_State *lua, GameMap &map) {
         }
         
         objectIndex++;
-        lua_pop(lua, 1); /* remove script */
         lua_pop(lua, 1); /* remove actor */
         
         lua_pushnumber(lua, objectIndex);
@@ -151,6 +150,8 @@ LuaGameMapScript::initializeMap(lua_State *lua, GameMap &map) {
     
 #ifdef DEBUG
     /* ensure we're back to the function we were called with */
+    //LogManager::debug(LuaLogUtil::dumpTable(lua));
+    LogManager::debug(lua_typename(lua, lua_type(lua, -1)));
     assert(lua_isfunction(lua, -1));
 #endif
     
@@ -182,10 +183,13 @@ LuaGameMapScript::createNewGameMap(lua_State *lua) {
      *       if there's a naming conflict.
      */
     if (!LuaHelpers::runFunction(lua)) {
-        return nullptr;
-    }
+        /* remove the map function */
+        lua_pop(lua, 1);
+        return nullptr;    }
     
     if (!initializeMap(lua, *map)) {
+        /* remove the actor function */
+        lua_pop(lua, 1);
         return nullptr;
     }
     

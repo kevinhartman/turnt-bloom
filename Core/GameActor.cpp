@@ -15,8 +15,6 @@ GameActor::GameActor() :
     m_subscribers(),
 
     m_position(0.0f, 0.0f, 0.0f),
-    m_direction(0.0f, 0.0f, 0.0f),
-    m_speed(0.0f),
 
     m_eyeline(0.0f, 0.0f, 0.0f),
     m_fieldOfView(0.0f),
@@ -26,6 +24,56 @@ GameActor::GameActor() :
 
     m_verticies()
 {}
+
+glm::vec3
+GameActor::getPosition() {
+    return m_position;
+}
+
+void
+GameActor::setPosition(glm::vec3 position) {
+    m_position = position;
+}
+
+glm::vec3
+GameActor::getEyeline() {
+    return m_eyeline;
+}
+
+void
+GameActor::setEyeline(glm::vec3 eyeline) {
+    m_eyeline = eyeline;
+}
+
+float
+GameActor::getFieldOfView() {
+    return m_fieldOfView;
+}
+
+void
+GameActor::setFieldOfView(float fOV) {
+    m_fieldOfView = fOV;
+}
+
+float
+GameActor::getVisionDepth() {
+    return m_visionDepth;
+}
+
+void
+GameActor::setVisionDepth(float visionDepth) {
+    m_visionDepth = visionDepth;
+}
+
+float
+GameActor::getBodyRadius() {
+    return m_bodyRadius;
+}
+
+void
+GameActor::setBodyRadius(float bodyRadius) {
+    m_bodyRadius = bodyRadius;
+}
 
 bool
 GameActor::isCollidingWith(GameActor &other) {

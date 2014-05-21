@@ -18,6 +18,10 @@ class TestLuaMapScript {
 public:
     static void test();
     
+private:
+    static void testMapCreate();
+    static void testMapCreateAndReload();
+    
 };
 
 

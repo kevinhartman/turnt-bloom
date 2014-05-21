@@ -36,6 +36,7 @@
 		0AAF3DD1190EE521000D6ADE /* LuaLogUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0AAF3DCE190EE521000D6ADE /* LuaLogUtil.cpp */; };
 		0AAF3DD5190F1A00000D6ADE /* TestUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0AAF3DD2190F1A00000D6ADE /* TestUtils.cpp */; };
 		0AAF3DD8190F3956000D6ADE /* TestLuaLogUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0AAF3DD6190F3956000D6ADE /* TestLuaLogUtil.cpp */; };
+		0AEA980C1924308900C62A91 /* TestLuaActorScript.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0AEA980A1924308900C62A91 /* TestLuaActorScript.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -95,6 +96,8 @@
 		0AAF3DD3190F1A00000D6ADE /* TestUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestUtils.h; sourceTree = "<group>"; };
 		0AAF3DD6190F3956000D6ADE /* TestLuaLogUtil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestLuaLogUtil.cpp; sourceTree = "<group>"; };
 		0AAF3DD7190F3956000D6ADE /* TestLuaLogUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestLuaLogUtil.h; sourceTree = "<group>"; };
+		0AEA980A1924308900C62A91 /* TestLuaActorScript.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestLuaActorScript.cpp; sourceTree = "<group>"; };
+		0AEA980B1924308900C62A91 /* TestLuaActorScript.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestLuaActorScript.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -187,6 +190,8 @@
 			children = (
 				0A97B0C219089CDD00E635F9 /* TestLuaMapScript.h */,
 				0A97B0C119089CDD00E635F9 /* TestLuaMapScript.cpp */,
+				0AEA980B1924308900C62A91 /* TestLuaActorScript.h */,
+				0AEA980A1924308900C62A91 /* TestLuaActorScript.cpp */,
 				0A97B0C319089CDD00E635F9 /* TestRunner.cpp */,
 				0AAF3DD3190F1A00000D6ADE /* TestUtils.h */,
 				0AAF3DD2190F1A00000D6ADE /* TestUtils.cpp */,
@@ -285,6 +290,7 @@
 				0AAF3DB6190B4C04000D6ADE /* Game.cpp in Sources */,
 				0AAF3DD1190EE521000D6ADE /* LuaLogUtil.cpp in Sources */,
 				0AAF3DC5190C7008000D6ADE /* LuaScriptManager.cpp in Sources */,
+				0AEA980C1924308900C62A91 /* TestLuaActorScript.cpp in Sources */,
 				0AAF3DD5190F1A00000D6ADE /* TestUtils.cpp in Sources */,
 				0A97B0CB19089CDD00E635F9 /* LuaGameMapScript.cpp in Sources */,
 				0A97B0D319089CDD00E635F9 /* TestRunner.cpp in Sources */,

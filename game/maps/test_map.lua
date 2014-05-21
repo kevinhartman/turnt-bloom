@@ -9,7 +9,7 @@ local hidden = "hello"
 
 local mushroom = {
     -- Script
-    script = loadfile("game/game_objects/test_object.lua"),
+    script = loadfile("game/actors/test_actor.lua"),
 
     capture = {
         myPotato = potato,
@@ -30,7 +30,7 @@ local mushroom = {
 
 local star = {
     -- Script
-    script = loadfile("game/game_objects/test_object.lua"),
+    script = loadfile("game/actors/test_actor.lua"),
 
     capture = {
         myPotato = potato,

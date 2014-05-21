@@ -10,12 +10,14 @@
 
 #include "TestLuaMapScript.h"
 #include "TestLuaLogUtil.h"
+#include "TestLuaActorScript.h"
 
 #include "LogManager.h"
 
 static void (*TESTS[])() =
 {
     TestLuaMapScript::test,
+    TestLuaActorScript::test,
     TestLuaLogUtil::test,
     nullptr /* sentinal */
 };

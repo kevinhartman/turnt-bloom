@@ -33,7 +33,7 @@ public:
     void onKeyboard();
     
 private:
-    void setEnvironmentFor(lua_State *lua, GameActor &actor);
+    bool getLuaGameActor(lua_State *lua, GameActor &map);
     bool initializeActor(lua_State *lua, GameActor &actor);
     
 };

@@ -24,13 +24,28 @@ public:
     
     void update(double timeElapsed);
     
+public:
+    glm::vec3 getPosition();
+    void setPosition(glm::vec3 position);
+    
+    glm::vec3 getEyeline();
+    void setEyeline(glm::vec3 eyeline);
+    
+    float getFieldOfView();
+    void setFieldOfView(float fOV);
+    
+    float getVisionDepth();
+    void setVisionDepth(float visionDepth);
+    
+    float getBodyRadius();
+    void setBodyRadius(float bodyRadius);
+    
+    
 private:
     std::vector<GameActor *> m_subscribers;
     
     /* motion */
     glm::vec3   m_position;
-    glm::vec3   m_direction;
-    float       m_speed;
     
     /* sight */
     glm::vec3   m_eyeline;
