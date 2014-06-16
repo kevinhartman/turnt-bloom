@@ -9,6 +9,8 @@
 #ifndef __LuaProject__ScriptEngine__
 #define __LuaProject__ScriptEngine__
 
+#include "Game.h"
+
 #include <iostream>
 
 class ScriptManager {
@@ -19,6 +21,10 @@ public:
     
 //public:
 //    void updateScene(GameMap &map, double timeElapsed);
+    
+    virtual bool createGame(Game **game) = 0;
+    
+    
 };
 
 

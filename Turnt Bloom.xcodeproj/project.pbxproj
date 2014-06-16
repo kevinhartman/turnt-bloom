@@ -278,7 +278,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "rm -r ${TARGET_BUILD_DIR}/game";
+			shellScript = "rm -rf ${TARGET_BUILD_DIR}/game";
 		};
 /* End PBXShellScriptBuildPhase section */
 

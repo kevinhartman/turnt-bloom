@@ -11,4 +11,8 @@
 
 #include <iostream>
 
+class Game {
+    
+};
+
 #endif /* defined(__Turnt_Bloom__Game__) */

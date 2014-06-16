@@ -28,7 +28,20 @@ LuaGameActorScript::LuaGameActorScript() {}
 
 bool
 LuaGameActorScript::getLuaGameActor(lua_State *lua, GameActor &actor) {
-    return false;
+    
+    /* get the actor's environment */
+    lua_pushlightuserdata(lua, (void *)&actor);     /* push actor address */
+    lua_gettable(lua, LUA_REGISTRYINDEX);           /* get the corresponding environment */
+    
+    /* if there was no function, error */
+    if (lua_isnil(lua, -1)) {
+        lua_pop(lua, 1);      /* remove nil */
+        
+        LogManager::error("No actor function instance exists for supplied actor.");
+        return false;
+    }
+    
+    return true;
 }
 
 bool
@@ -173,49 +186,6 @@ LuaGameActorScript::createNewGameActor(lua_State *lua) {
     
     return actor;
 
-    
-    
-    
-    
-    // TODO: stubbed
-    
-    
-    /* Get motion attributes */
-    //    lua_getglobal(m_lua, GLOBAL_POSITION);
-    //
-    //    lua_Number position[3];
-    //    if (!LuaHelpers::getVec3(m_lua, position)) {
-    //        fprintf(stderr, "%s is invalid.\n", GLOBAL_POSITION);
-    //        return false;
-    //    }
-    //
-    //    lua_pop(m_lua, 1);
-    //
-    //    lua_getglobal(m_lua, GLOBAL_DIRECTION);
-    //
-    //    lua_Number direction[3];
-    //    if (!LuaHelpers::getVec3(m_lua, direction)) {
-    //        fprintf(stderr, "%s is invalid.\n", GLOBAL_DIRECTION);
-    //        return false;
-    //    }
-    //
-    //    lua_getglobal(m_lua, GLOBAL_SPEED);
-    //    lua_Number speed = lua_tonumber(m_lua, -1);
-    //    printf("[C++] speed = %f\n", speed);
-    //
-    //
-    //    lua_getglobal(m_lua, GLOBAL_FIELD_OF_VIEW);
-    //    lua_Number fieldOfView = lua_tonumber(m_lua, -1);
-    //    printf("[C++] fieldOfView = %f\n", fieldOfView);
-    //
-    //    lua_getglobal(m_lua, GLOBAL_VISION_DEPTH);
-    //    lua_Number visionDepth = lua_tonumber(m_lua, -1);
-    //    printf("[C++] visionDepth = %f\n", visionDepth);
-    //
-    //    lua_getglobal(m_lua, GLOBAL_BODY_RADIUS);
-    //    lua_Number bodyRadius = lua_tonumber(m_lua, -1);
-    //    printf("[C++] bodyRadius = %f\n", bodyRadius);
-    return nullptr;
 }
 
 void
