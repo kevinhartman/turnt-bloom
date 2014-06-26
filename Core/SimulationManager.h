@@ -21,8 +21,8 @@ private:
 public:
     static SimulationManager *getInstance()
     {
-        static SimulationManager instance; // Guaranteed to be destroyed.
-        // Instantiated on first use.
+        static SimulationManager instance;
+        
         return &instance;
     }
     

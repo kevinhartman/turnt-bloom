@@ -12,21 +12,22 @@
 #include <iostream>
 
 #include "ScriptManager.h"
+#include "LuaGameScript.h"
 
 #include <lua.hpp>
 
 class LuaScriptManager : ScriptManager {
     
 private:
-    LuaScriptManager() {};
+    LuaScriptManager() : m_gameScript() {};
     LuaScriptManager(LuaScriptManager const&);
     void operator=(LuaScriptManager const&);
     
 public:
     static ScriptManager *getInstance()
     {
-        static LuaScriptManager instance; // Guaranteed to be destroyed.
-        // Instantiated on first use.
+        static LuaScriptManager instance;
+        
         return &instance;
     }
     
@@ -34,11 +35,12 @@ public:
     virtual bool init(std::string scriptPath);
     virtual void shutdown();
     
-private:
-    static bool loadScript(lua_State *lua, std::string scriptPath);
+    virtual bool createGame(Game **game);
     
 private:
     lua_State *m_lua;
+    
+    LuaGameScript m_gameScript;
     
 };
 

@@ -33,7 +33,7 @@ LuaGameActorScript::getLuaGameActor(lua_State *lua, GameActor &actor) {
     lua_pushlightuserdata(lua, (void *)&actor);     /* push actor address */
     lua_gettable(lua, LUA_REGISTRYINDEX);           /* get the corresponding environment */
     
-    /* if there was no function, error */
+    /* if there was no environment, error */
     if (lua_isnil(lua, -1)) {
         lua_pop(lua, 1);      /* remove nil */
         

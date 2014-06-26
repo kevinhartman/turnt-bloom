@@ -21,8 +21,8 @@ private:
 public:
     static LogManager *getInstance()
     {
-        static LogManager instance; // Guaranteed to be destroyed.
-        // Instantiated on first use.
+        static LogManager instance;
+        
         return &instance;
     }
     

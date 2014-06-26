@@ -1,17 +1,18 @@
 //
-//  ScriptEngine.h
+//  ScriptManager.h
 //  LuaProject
 //
 //  Created by Kevin Hartman on 4/17/14.
 //  Copyright (c) 2014 Kevin Hartman. All rights reserved.
 //
 
-#ifndef __LuaProject__ScriptEngine__
-#define __LuaProject__ScriptEngine__
+#ifndef __LuaProject__ScriptManager__
+#define __LuaProject__ScriptManager__
 
 #include "Game.h"
 
 #include <iostream>
+
 
 class ScriptManager {
     
@@ -28,4 +29,4 @@ public:
 };
 
 
-#endif /* defined(__LuaProject__ScriptEngine__) */
+#endif /* defined(__LuaProject__ScriptManager__) */

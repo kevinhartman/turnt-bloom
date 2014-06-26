@@ -15,8 +15,6 @@
 
 #include "GameActor.h"
 
-#endif /* defined(__LuaProject__GameMap__) */
-
 class GameMap {
     
 public:
@@ -31,3 +29,5 @@ public:
 private:
     std::vector<GameActor *> m_gameActors;
 };
+
+#endif /* defined(__LuaProject__GameMap__) */

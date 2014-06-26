@@ -9,6 +9,7 @@
 #include "LuaScriptManager.h"
 #include "LuaHelpers.h"
 #include "LogManager.h"
+#include "LuaLogUtil.h"
 
 bool
 LuaScriptManager::init(std::string scriptPath) {
@@ -41,9 +42,17 @@ LuaScriptManager::init(std::string scriptPath) {
         lua_settop(lua, 0);
     }
     
-    if (!loadScript(lua, scriptPath)) {
+    /* load the map */
+    if (!LuaHelpers::loadFile(lua, scriptPath)) {
         return false;
     }
+    
+#ifdef DEBUG
+    /* print out the up value of loaded file */
+    lua_getupvalue(lua, -1, 1);
+    LogManager::debug(LuaLogUtil::dumpTable(lua));
+    lua_pop(lua, 1);
+#endif
     
     /* attach new lua state to script manager */
     m_lua = lua;
@@ -53,15 +62,16 @@ LuaScriptManager::init(std::string scriptPath) {
 }
 
 bool
-LuaScriptManager::loadScript(lua_State *lua, std::string scriptPath) {
+LuaScriptManager::createGame(Game **game) {
     
-    if (!LuaHelpers::loadFile(lua, scriptPath)) {
-        LogManager::error("Failed to load game script.");
+    if (!game) {
         return false;
     }
     
-    if (!LuaHelpers::runFunction(lua)) {
-        LogManager::error("Failed to run game script.");
+    /* create a new Game using the loaded file */
+    *game = m_gameScript.createNewGame(m_lua);
+    
+    if (!*game) {
         return false;
     }
     

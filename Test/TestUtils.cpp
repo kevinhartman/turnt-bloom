@@ -11,8 +11,14 @@
 bool
 TestUtils::createLuaState(lua_State **lua) {
     
+    /* param guard */
+    if (!lua) {
+        return false;
+    }
+    
     *lua = luaL_newstate();
     
+    /* new state creation check */
     if (!lua) {
         return false;
     }

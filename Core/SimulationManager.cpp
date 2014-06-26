@@ -7,11 +7,23 @@
 //
 
 #include "SimulationManager.h"
+#include "Game.h"
+#include "LuaScriptManager.h"
+
+#include <assert.h>
 
 void
 SimulationManager::run() {
     /* game loop here */
     
+    ScriptManager *scriptManager = LuaScriptManager::getInstance();
+
+    Game *game;
+    scriptManager->createGame(&game);
+
+#ifdef DEBUG
+    assert(game);
+#endif
     
     
     while (true) {
