@@ -14,15 +14,17 @@
 /* Lua */
 #include <lua.hpp>
 
+#include "LuaScript.h"
 #include "GameActor.h"
 
-class LuaGameActorScript {
+class LuaGameActorScript : public LuaScript<GameActor> {
     
 public:
     LuaGameActorScript();
     
+    virtual bool initialize(lua_State *lua, GameActor &actor);
+    
 public:
-    GameActor *createNewGameActor(lua_State *lua);
     
     void onError(int errorCode);
     
@@ -31,10 +33,6 @@ public:
     bool onTargetUpdate(GameActor &other);
     
     void onKeyboard();
-    
-private:
-    bool getLuaGameActor(lua_State *lua, GameActor &map);
-    bool initializeActor(lua_State *lua, GameActor &actor);
     
 };
 

@@ -15,21 +15,19 @@
 /* Lua */
 #include <lua.hpp>
 
+#include "LuaScript.h"
 #include "GameMap.h"
 #include "LuaGameActorScript.h"
 
-class LuaGameMapScript {
+class LuaGameMapScript : public LuaScript<GameMap> {
     
 public:
     LuaGameMapScript();
     
+    virtual bool initialize(lua_State *lua, GameMap &map);
+
 public:
-    GameMap *createNewGameMap(lua_State *lua);
     void updateScene(lua_State *lua, GameMap &map, double timeElapsed);
-    
-private:
-    bool getLuaGameMap(lua_State *lua, GameMap &map);
-    bool initializeMap(lua_State *lua, GameMap &map);
     
 private:
     LuaGameActorScript m_actorScript;

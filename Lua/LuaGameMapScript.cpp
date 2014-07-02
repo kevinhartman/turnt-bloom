@@ -7,7 +7,6 @@
 //
 
 #include "LuaGameMapScript.h"
-#include "LuaHelpers.h"
 #include "LogManager.h"
 #include "LuaLogUtil.h"
 
@@ -20,35 +19,8 @@ const char* const GLOBAL_CAPTURE =      "capture";
 
 LuaGameMapScript::LuaGameMapScript() : m_actorScript() {}
 
-/*
- * Gets a Lua function instance of an existing map, given a GameMap.
- *
- * If the map has an associated Lua function, this function is pushed onto the stack
- * and the call returns true.
- *
- * Otherwise, nothing is pushed, and the call returns false.
- */
 bool
-LuaGameMapScript::getLuaGameMap(lua_State *lua, GameMap &map) {
-    
-    /* get the map's environment */
-    lua_pushlightuserdata(lua, (void *)&map);     /* push map address */
-    lua_gettable(lua, LUA_REGISTRYINDEX);         /* get the corresponding environment */
-    
-    /* if there was no environment, error */
-    if (lua_isnil(lua, -1)) {
-        lua_pop(lua, 1);      /* remove nil */
-        
-        LogManager::error("No map function instance exists for supplied map.");
-        return false;
-    }
-    
-    return true;
-}
-
-
-bool
-LuaGameMapScript::initializeMap(lua_State *lua, GameMap &map) {
+LuaGameMapScript::initialize(lua_State *lua, GameMap &map) {
     
     /* get map's _ENV */
     lua_getupvalue(lua, -1, 1);
@@ -128,7 +100,7 @@ LuaGameMapScript::initializeMap(lua_State *lua, GameMap &map) {
         }
         
         /* create actor with chunk */
-        GameActor *actor = m_actorScript.createNewGameActor(lua);
+        GameActor *actor = m_actorScript.newInstance(lua);
         
         /* add actor to map */
         if (actor) {
@@ -157,53 +129,6 @@ LuaGameMapScript::initializeMap(lua_State *lua, GameMap &map) {
     
     return true;
     
-}
-
-/*
- * Creates a new GameMap using the function at the top of the lua stack.
- *
- * Pops the function at the top of the stack before returning.
- */
-GameMap *
-LuaGameMapScript::createNewGameMap(lua_State *lua) {
-    
-    if (!lua_isfunction(lua, -1)) {
-        fprintf(stderr, "** Error: A map function must be present on the top of the stack to create a new map.\n");
-        return nullptr;
-    }
-    
-    /* create a map */
-    GameMap *map = new GameMap();
-    
-    /* duplicate function so we can read the loaded environment after running */
-    lua_pushvalue(lua, -1);
-    
-    /* load the game map into its environment.
-     * Note: anything preloaded in its _ENV will be overwritten
-     *       if there's a naming conflict.
-     */
-    if (!LuaHelpers::runFunction(lua)) {
-        /* remove the map function */
-        lua_pop(lua, 1);
-        return nullptr;    }
-    
-    if (!initializeMap(lua, *map)) {
-        /* remove the actor function */
-        lua_pop(lua, 1);
-        return nullptr;
-    }
-    
-    /* store the map's instance so we can get it later */
-    lua_pushlightuserdata(lua, (void *)map);    /* push map address */
-    lua_pushvalue(lua, -2);                     /* push map function */
-    
-    /* registry[&map] = map function instance */
-    lua_settable(lua, LUA_REGISTRYINDEX);
-
-    /* remove the map function from the stack before returning */
-    lua_pop(lua, 1);
-     
-    return map;
 }
 
 void

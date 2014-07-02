@@ -38,7 +38,7 @@ TestLuaMapScript::testMapCreate() {
     
     /* create a new GameMap using the loaded file */
     LuaGameMapScript *script = new LuaGameMapScript();
-    GameMap *map = script->createNewGameMap(lua);
+    GameMap *map = script->newInstance(lua);
     assert(map);
     
     /* ensure stack is as expected */
@@ -60,11 +60,11 @@ TestLuaMapScript::testMapCreateAndReload() {
     
     /* create a new GameMap using the loaded file */
     LuaGameMapScript *script = new LuaGameMapScript();
-    GameMap *map = script->createNewGameMap(lua);
+    GameMap *map = script->newInstance(lua);
     assert(map);
     
     /* Get Lua map instance from Script */
-    assert(script->getLuaGameMap(lua, *map));
+    assert(script->getLuaFunction(lua, *map));
     
 }
 

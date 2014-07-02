@@ -7,7 +7,6 @@
 //
 
 #include "LuaGameActorScript.h"
-#include "LuaHelpers.h"
 #include "LogManager.h"
 #include "LuaLogUtil.h"
 
@@ -25,27 +24,8 @@ const char* const GLOBAL_BODY_RADIUS =      "bodyRadius";
 
 LuaGameActorScript::LuaGameActorScript() {}
 
-
 bool
-LuaGameActorScript::getLuaGameActor(lua_State *lua, GameActor &actor) {
-    
-    /* get the actor's environment */
-    lua_pushlightuserdata(lua, (void *)&actor);     /* push actor address */
-    lua_gettable(lua, LUA_REGISTRYINDEX);           /* get the corresponding environment */
-    
-    /* if there was no environment, error */
-    if (lua_isnil(lua, -1)) {
-        lua_pop(lua, 1);      /* remove nil */
-        
-        LogManager::error("No actor function instance exists for supplied actor.");
-        return false;
-    }
-    
-    return true;
-}
-
-bool
-LuaGameActorScript::initializeActor(lua_State *lua, GameActor &actor) {
+LuaGameActorScript::initialize(lua_State *lua, GameActor &actor) {
     
     /* get map's _ENV */
     lua_getupvalue(lua, -1, 1);
@@ -142,50 +122,6 @@ LuaGameActorScript::initializeActor(lua_State *lua, GameActor &actor) {
 #endif
     
     return true;
-}
-
-GameActor *
-LuaGameActorScript::createNewGameActor(lua_State *lua) {
-    
-    if (!lua_isfunction(lua, -1)) {
-        fprintf(stderr, "** Error: An actor function must be present on the top of the stack to create a new actor.\n");
-        return nullptr;
-    }
-    
-    /* create an actor */
-    GameActor *actor = new GameActor();
-    
-    /* duplicate function so we can read the loaded environment after running */
-    lua_pushvalue(lua, -1);
-    
-    /* load the game actor into its environment.
-     * Note: anything preloaded in its _ENV will be overwritten
-     *       if there's a naming conflict.
-     */
-    if (!LuaHelpers::runFunction(lua)) {
-        /* remove the actor function */
-        lua_pop(lua, 1);
-        return nullptr;
-    }
-    
-    if (!initializeActor(lua, *actor)) {
-        /* remove the actor function */
-        lua_pop(lua, 1);
-        return nullptr;
-    }
-    
-    /* store the actor's instance so we can get it later */
-    lua_pushlightuserdata(lua, (void *)actor);    /* push actor address */
-    lua_pushvalue(lua, -2);                     /* push actor function */
-    
-    /* registry[&actor] = actor function instance */
-    lua_settable(lua, LUA_REGISTRYINDEX);
-    
-    /* remove the actor function from the stack before returning */
-    lua_pop(lua, 1);
-    
-    return actor;
-
 }
 
 void

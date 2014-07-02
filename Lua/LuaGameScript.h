@@ -15,18 +15,14 @@
 #include <lua.hpp>
 
 #include "Game.h"
+#include "LuaScript.h"
 
-class LuaGameScript {
+class LuaGameScript : public LuaScript<Game> {
     
 public:
     LuaGameScript();
     
-public:
-    Game *createNewGame(lua_State *lua);
-    
-private:
-    bool getLuaGame(lua_State *lua, Game &game);
-    bool initializeGame(lua_State *lua, Game &game);
+    virtual bool initialize(lua_State *lua, Game &game);
     
 };
 

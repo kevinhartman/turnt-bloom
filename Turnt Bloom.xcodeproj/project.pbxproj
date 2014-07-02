@@ -38,6 +38,8 @@
 		0AAF3DD8190F3956000D6ADE /* TestLuaLogUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0AAF3DD6190F3956000D6ADE /* TestLuaLogUtil.cpp */; };
 		0AB8BB54194EDC4C0086E031 /* LuaGameScript.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0AB8BB52194EDC4C0086E031 /* LuaGameScript.cpp */; };
 		0AB8BB55194EDC4C0086E031 /* LuaGameScript.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0AB8BB52194EDC4C0086E031 /* LuaGameScript.cpp */; };
+		0AD3617E1961BEFB0059D55F /* LuaScript.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0AD3617C1961BEFB0059D55F /* LuaScript.cpp */; };
+		0AD3617F1961BEFB0059D55F /* LuaScript.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0AD3617C1961BEFB0059D55F /* LuaScript.cpp */; };
 		0AEA980C1924308900C62A91 /* TestLuaActorScript.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0AEA980A1924308900C62A91 /* TestLuaActorScript.cpp */; };
 /* End PBXBuildFile section */
 
@@ -100,6 +102,8 @@
 		0AAF3DD7190F3956000D6ADE /* TestLuaLogUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestLuaLogUtil.h; sourceTree = "<group>"; };
 		0AB8BB52194EDC4C0086E031 /* LuaGameScript.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LuaGameScript.cpp; sourceTree = "<group>"; };
 		0AB8BB53194EDC4C0086E031 /* LuaGameScript.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LuaGameScript.h; sourceTree = "<group>"; };
+		0AD3617C1961BEFB0059D55F /* LuaScript.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LuaScript.cpp; sourceTree = "<group>"; };
+		0AD3617D1961BEFB0059D55F /* LuaScript.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LuaScript.h; sourceTree = "<group>"; };
 		0AEA980A1924308900C62A91 /* TestLuaActorScript.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestLuaActorScript.cpp; sourceTree = "<group>"; };
 		0AEA980B1924308900C62A91 /* TestLuaActorScript.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestLuaActorScript.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -177,6 +181,8 @@
 			children = (
 				0AAF3DC3190C7008000D6ADE /* LuaScriptManager.h */,
 				0AAF3DC2190C7008000D6ADE /* LuaScriptManager.cpp */,
+				0AD3617D1961BEFB0059D55F /* LuaScript.h */,
+				0AD3617C1961BEFB0059D55F /* LuaScript.cpp */,
 				0AB8BB53194EDC4C0086E031 /* LuaGameScript.h */,
 				0AB8BB52194EDC4C0086E031 /* LuaGameScript.cpp */,
 				0A97B0BB19089CDD00E635F9 /* LuaGameMapScript.h */,
@@ -307,6 +313,7 @@
 				0A97B0CF19089CDD00E635F9 /* LuaHelpers.cpp in Sources */,
 				0A97B0C719089CDD00E635F9 /* GameActor.cpp in Sources */,
 				0A97B0C519089CDD00E635F9 /* GameMap.cpp in Sources */,
+				0AD3617F1961BEFB0059D55F /* LuaScript.cpp in Sources */,
 				0A97B0D119089CDD00E635F9 /* TestLuaMapScript.cpp in Sources */,
 				0AAF3DC1190C68D8000D6ADE /* SimulationManager.cpp in Sources */,
 			);
@@ -324,6 +331,7 @@
 				0A97B0CE19089CDD00E635F9 /* LuaHelpers.cpp in Sources */,
 				0A97B0C619089CDD00E635F9 /* GameActor.cpp in Sources */,
 				0AB8BB54194EDC4C0086E031 /* LuaGameScript.cpp in Sources */,
+				0AD3617E1961BEFB0059D55F /* LuaScript.cpp in Sources */,
 				0A97B0C419089CDD00E635F9 /* GameMap.cpp in Sources */,
 				0AAF3DD0190EE521000D6ADE /* LuaLogUtil.cpp in Sources */,
 				0AAF3DC0190C68D8000D6ADE /* SimulationManager.cpp in Sources */,

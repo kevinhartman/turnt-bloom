@@ -69,7 +69,7 @@ LuaScriptManager::createGame(Game **game) {
     }
     
     /* create a new Game using the loaded file */
-    *game = m_gameScript.createNewGame(m_lua);
+    *game = m_gameScript.newInstance(m_lua);
     
     if (!*game) {
         return false;

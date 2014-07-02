@@ -38,7 +38,7 @@ TestLuaActorScript::testActorCreate() {
     
     /* create a new GameActor using the loaded file */
     LuaGameActorScript *script = new LuaGameActorScript();
-    GameActor *actor = script->createNewGameActor(lua);
+    GameActor *actor = script->newInstance(lua);
     assert(actor);
     
     /* ensure stack is as expected */
@@ -60,7 +60,7 @@ TestLuaActorScript::testActorCreateAndReload() {
     
     /* create a new GameActor using the loaded file */
     LuaGameActorScript *script = new LuaGameActorScript();
-    GameActor *actor = script->createNewGameActor(lua);
+    GameActor *actor = script->newInstance(lua);
     assert(actor);
     
     /* Get Lua actor instance from Script */
