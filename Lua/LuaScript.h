@@ -24,7 +24,7 @@ public:
 public:
     
     /*
-     * Creates a new GameMap using the function at the top of the lua stack.
+     * Creates a new T using the function at the top of the lua stack.
      *
      * Pops the function at the top of the stack before returning.
      */
@@ -36,6 +36,7 @@ public:
         }
         
         /* create a map */
+        // TODO: either make this abstract, or passed in as a param
         T *map = new T();
         
         /* duplicate function so we can read the loaded environment after running */

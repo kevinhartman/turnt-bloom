@@ -41,6 +41,8 @@
 		0AD3617E1961BEFB0059D55F /* LuaScript.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0AD3617C1961BEFB0059D55F /* LuaScript.cpp */; };
 		0AD3617F1961BEFB0059D55F /* LuaScript.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0AD3617C1961BEFB0059D55F /* LuaScript.cpp */; };
 		0AEA980C1924308900C62A91 /* TestLuaActorScript.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0AEA980A1924308900C62A91 /* TestLuaActorScript.cpp */; };
+		0AF4633F1965B0BB00817781 /* LuaScriptHelpers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0AF4633D1965B0BB00817781 /* LuaScriptHelpers.cpp */; };
+		0AF463401965B0BB00817781 /* LuaScriptHelpers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0AF4633D1965B0BB00817781 /* LuaScriptHelpers.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -106,6 +108,8 @@
 		0AD3617D1961BEFB0059D55F /* LuaScript.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LuaScript.h; sourceTree = "<group>"; };
 		0AEA980A1924308900C62A91 /* TestLuaActorScript.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestLuaActorScript.cpp; sourceTree = "<group>"; };
 		0AEA980B1924308900C62A91 /* TestLuaActorScript.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestLuaActorScript.h; sourceTree = "<group>"; };
+		0AF4633D1965B0BB00817781 /* LuaScriptHelpers.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LuaScriptHelpers.cpp; sourceTree = "<group>"; };
+		0AF4633E1965B0BB00817781 /* LuaScriptHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LuaScriptHelpers.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -193,6 +197,8 @@
 				0A97B0BE19089CDD00E635F9 /* LuaHelpers.cpp */,
 				0AAF3DCF190EE521000D6ADE /* LuaLogUtil.h */,
 				0AAF3DCE190EE521000D6ADE /* LuaLogUtil.cpp */,
+				0AF4633E1965B0BB00817781 /* LuaScriptHelpers.h */,
+				0AF4633D1965B0BB00817781 /* LuaScriptHelpers.cpp */,
 			);
 			path = Lua;
 			sourceTree = "<group>";
@@ -304,6 +310,7 @@
 				0AAF3DC5190C7008000D6ADE /* LuaScriptManager.cpp in Sources */,
 				0AB8BB55194EDC4C0086E031 /* LuaGameScript.cpp in Sources */,
 				0AEA980C1924308900C62A91 /* TestLuaActorScript.cpp in Sources */,
+				0AF463401965B0BB00817781 /* LuaScriptHelpers.cpp in Sources */,
 				0AAF3DD5190F1A00000D6ADE /* TestUtils.cpp in Sources */,
 				0A97B0CB19089CDD00E635F9 /* LuaGameMapScript.cpp in Sources */,
 				0A97B0D319089CDD00E635F9 /* TestRunner.cpp in Sources */,
@@ -330,6 +337,7 @@
 				0A97B0CC19089CDD00E635F9 /* LuaGameActorScript.cpp in Sources */,
 				0A97B0CE19089CDD00E635F9 /* LuaHelpers.cpp in Sources */,
 				0A97B0C619089CDD00E635F9 /* GameActor.cpp in Sources */,
+				0AF4633F1965B0BB00817781 /* LuaScriptHelpers.cpp in Sources */,
 				0AB8BB54194EDC4C0086E031 /* LuaGameScript.cpp in Sources */,
 				0AD3617E1961BEFB0059D55F /* LuaScript.cpp in Sources */,
 				0A97B0C419089CDD00E635F9 /* GameMap.cpp in Sources */,

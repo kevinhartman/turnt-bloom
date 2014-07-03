@@ -7,6 +7,7 @@
 //
 
 #include "LuaGameMapScript.h"
+#include "LuaScriptHelpers.h"
 #include "LogManager.h"
 #include "LuaLogUtil.h"
 
@@ -48,52 +49,8 @@ LuaGameMapScript::initialize(lua_State *lua, GameMap &map) {
     
     while (!lua_isnil(lua, -1)) {
         
-        /* verify current game object is a table */
-        if (!lua_istable(lua, -1)) {
-            LogManager::error("Invalid game actor.");
-            
-            lua_pop(lua, 1); /* remove actor */
-            lua_pop(lua, 1); /* remove gameActors */
-            lua_pop(lua, 1); /* remove _ENV */
-            return false;
-        }
-        
-        /* get the game object's script */
-        lua_getfield(lua, -1, GLOBAL_SCRIPT);
-        
-        /* verify script is a function */
-        if (!lua_isfunction(lua, -1)) {
-            LogManager::error("Invalid game actor chunk.");
-            
-            lua_pop(lua, 1); /* remove invalid script/chunk */
-            lua_pop(lua, 1); /* remove actor */
-            lua_pop(lua, 1); /* remove gameActors */
-            lua_pop(lua, 1); /* remove _ENV */
-            return false;
-        }
-        
-        /* get the game object's capture */
-        lua_getfield(lua, -2, GLOBAL_CAPTURE);
-        
-        /* verify capture is a table */
-        if (!lua_istable(lua, -1)) {
-            LogManager::error("Invalid game object capture.");
-            
-            lua_pop(lua, 1); /* remove invalid capture */
-            lua_pop(lua, 1); /* remove script/chunk */
-            lua_pop(lua, 1); /* remove actor */
-            lua_pop(lua, 1); /* remove gameActors */
-            lua_pop(lua, 1); /* remove _ENV */
-            return false;
-        }
-        
-        /* set game object's script function's _ENV to capture */
-        if(!lua_setupvalue(lua, -2, 1)) {
-            LogManager::error("Map function somehow didn't have an _ENV to set...");
-            
-            lua_pop(lua, 1); /* remove capture */
-            lua_pop(lua, 1); /* remove script/chunk */
-            lua_pop(lua, 1); /* remove actor */
+        if (!LuaScriptHelpers::initFunctionWithBlock(lua)) {
+            lua_pop(lua, 1); /* remove block */
             lua_pop(lua, 1); /* remove gameActors */
             lua_pop(lua, 1); /* remove _ENV */
             return false;
@@ -110,14 +67,14 @@ LuaGameMapScript::initialize(lua_State *lua, GameMap &map) {
         }
         
         objectIndex++;
-        lua_pop(lua, 1); /* remove actor */
+        lua_pop(lua, 1); /* remove block */
         
         lua_pushnumber(lua, objectIndex);
         lua_gettable(lua, -2);
     }
     
     lua_pop(lua, 1);    /* remove the nil */
-    lua_pop(lua, 1);    /* remove the gameObjects table */
+    lua_pop(lua, 1);    /* remove the gameActor blocks table */
     lua_pop(lua, 1);    /* remove the _ENV table */
     
 #ifdef DEBUG
