@@ -23,7 +23,7 @@ TestUtils::createLuaState(lua_State **lua) {
         return false;
     }
     
-    /* Lua libraries for GameMap scripts */
+    /* Lua libraries for Map scripts */
     static const luaL_Reg lualibs[] =
     {
         { "base", luaopen_base },

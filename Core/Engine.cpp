@@ -10,8 +10,6 @@
 #include "LuaScriptManager.h"
 #include "SimulationManager.h"
 
-const char* const GAME_FILE = "game/test_game.lua";
-
 LogManager *g_logManager = LogManager::getInstance();
 SimulationManager *g_simulationManager = SimulationManager::getInstance();
 ScriptManager *g_scriptManager = LuaScriptManager::getInstance();

@@ -19,7 +19,7 @@ template <class T>
 class LuaScript {
     
 public:
-    virtual bool initialize(lua_State *lua, T &object) = 0;
+    virtual T *initialize(lua_State *lua) = 0;
     
 public:
     
@@ -37,7 +37,7 @@ public:
         
         /* create a map */
         // TODO: either make this abstract, or passed in as a param
-        T *map = new T();
+        //T *map = new T();
         
         /* duplicate function so we can read the loaded environment after running */
         lua_pushvalue(lua, -1);
@@ -51,7 +51,9 @@ public:
             lua_pop(lua, 1);
             return nullptr;    }
         
-        if (!initialize(lua, *map)) {
+        T *map = initialize(lua);
+        
+        if (!map) {
             /* remove the actor function */
             lua_pop(lua, 1);
             return nullptr;
@@ -71,7 +73,7 @@ public:
     }
     
     /*
-     * Gets a Lua function instance of an existing map, given a GameMap.
+     * Gets a Lua function instance of an existing map, given a Map.
      *
      * If the map has an associated Lua function, this function is pushed onto the stack
      * and the call returns true.

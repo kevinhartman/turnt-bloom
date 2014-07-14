@@ -1,16 +1,16 @@
 //
-//  GameActor.cpp
+//  Actor.cpp
 //  LuaProject
 //
 //  Created by Kevin Hartman on 4/17/14.
 //  Copyright (c) 2014 Kevin Hartman. All rights reserved.
 //
 
-#include "GameActor.h"
+#include "Actor.h"
 #include <glm/gtx/norm.hpp>
 #include <glm/gtx/vector_angle.hpp>
 
-GameActor::GameActor() :
+Actor::Actor() :
 
     m_subscribers(),
 
@@ -26,57 +26,57 @@ GameActor::GameActor() :
 {}
 
 glm::vec3
-GameActor::getPosition() {
+Actor::getPosition() {
     return m_position;
 }
 
 void
-GameActor::setPosition(glm::vec3 position) {
+Actor::setPosition(glm::vec3 position) {
     m_position = position;
 }
 
 glm::vec3
-GameActor::getEyeline() {
+Actor::getEyeline() {
     return m_eyeline;
 }
 
 void
-GameActor::setEyeline(glm::vec3 eyeline) {
+Actor::setEyeline(glm::vec3 eyeline) {
     m_eyeline = eyeline;
 }
 
 float
-GameActor::getFieldOfView() {
+Actor::getFieldOfView() {
     return m_fieldOfView;
 }
 
 void
-GameActor::setFieldOfView(float fOV) {
+Actor::setFieldOfView(float fOV) {
     m_fieldOfView = fOV;
 }
 
 float
-GameActor::getVisionDepth() {
+Actor::getVisionDepth() {
     return m_visionDepth;
 }
 
 void
-GameActor::setVisionDepth(float visionDepth) {
+Actor::setVisionDepth(float visionDepth) {
     m_visionDepth = visionDepth;
 }
 
 float
-GameActor::getBodyRadius() {
+Actor::getBodyRadius() {
     return m_bodyRadius;
 }
 
 void
-GameActor::setBodyRadius(float bodyRadius) {
+Actor::setBodyRadius(float bodyRadius) {
     m_bodyRadius = bodyRadius;
 }
 
 bool
-GameActor::isCollidingWith(GameActor &other) {
+Actor::isCollidingWith(Actor &other) {
     
     float distance2 = glm::distance2(m_position, other.m_position);
     float radiiSum2 = glm::pow((m_bodyRadius + other.m_bodyRadius), 2.0f);
@@ -85,7 +85,7 @@ GameActor::isCollidingWith(GameActor &other) {
 }
 
 bool
-GameActor::isSeeing(GameActor &other) {
+Actor::isSeeing(Actor &other) {
     
     // TODO: only detects if position of other is in view.
     // this should be expanded to see if other's physics body is in field of view

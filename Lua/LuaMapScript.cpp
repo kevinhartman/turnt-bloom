@@ -1,27 +1,53 @@
 //
-//  LuaGameMapScript.cpp
+//  LuaMapScript.cpp
 //  LuaProject
 //
 //  Created by Kevin Hartman on 4/20/14.
 //  Copyright (c) 2014 Kevin Hartman. All rights reserved.
 //
 
-#include "LuaGameMapScript.h"
+#include "LuaMapScript.h"
 #include "LuaScriptHelpers.h"
 #include "LogManager.h"
 #include "LuaLogUtil.h"
+#include "LuaStateManager.h"
 
 #include <lauxlib.h>
 #include <lualib.h>
 
-const char* const GLOBAL_GAME_ACTORS =  "gameActors";
+const char* const GLOBAL_GAME_ACTORS =  "actors";
 const char* const GLOBAL_SCRIPT =       "script";
 const char* const GLOBAL_CAPTURE =      "capture";
 
-LuaGameMapScript::LuaGameMapScript() : m_actorScript() {}
+LuaMapScript::LuaMapScript() : m_actorScript() {}
 
-bool
-LuaGameMapScript::initialize(lua_State *lua, GameMap &map) {
+Map *
+LuaMapScript::createNewMap(std::string filePath) {
+    
+    lua_State *lua = LuaStateManager::getLuaState();
+    
+    // TODO: set stack to empty?
+    
+    /* load the game from script */
+    if (!LuaHelpers::loadFile(lua, filePath)) {
+        // TODO: is cleanup required on fail?
+        return nullptr;
+    }
+    
+#ifdef DEBUG
+    /* print out the up value of loaded file */
+    lua_getupvalue(lua, -1, 1);
+    LogManager::debug(LuaLogUtil::dumpTable(lua));
+    lua_pop(lua, 1);
+#endif
+    
+    return newInstance(lua);
+}
+
+Map *
+LuaMapScript::initialize(lua_State *lua) {
+    
+    Map *map = new Map();
     
     /* get map's _ENV */
     lua_getupvalue(lua, -1, 1);
@@ -36,11 +62,11 @@ LuaGameMapScript::initialize(lua_State *lua, GameMap &map) {
     
     /* ensure there's a table of game actors */
     if (!lua_istable(lua, -1)) {
-        LogManager::error("No gameActors table in map.");
+        LogManager::error("No actors table in map.");
         
-        lua_pop(lua, 1); /* remove invalid gameActors */
+        lua_pop(lua, 1); /* remove invalid actors */
         lua_pop(lua, 1); /* remove _ENV */
-        return false;
+        return nullptr;
     }
     
     int objectIndex = 1;
@@ -51,17 +77,17 @@ LuaGameMapScript::initialize(lua_State *lua, GameMap &map) {
         
         if (!LuaScriptHelpers::initFunctionWithBlock(lua)) {
             lua_pop(lua, 1); /* remove block */
-            lua_pop(lua, 1); /* remove gameActors */
+            lua_pop(lua, 1); /* remove actors */
             lua_pop(lua, 1); /* remove _ENV */
-            return false;
+            return nullptr;
         }
         
         /* create actor with chunk */
-        GameActor *actor = m_actorScript.newInstance(lua);
+        Actor *actor = m_actorScript.newInstance(lua);
         
         /* add actor to map */
         if (actor) {
-            map.addGameActor(*actor);
+            map->addActor(*actor);
         } else {
             LogManager::error("Invalid actor. Skipping.");
         }
@@ -74,7 +100,7 @@ LuaGameMapScript::initialize(lua_State *lua, GameMap &map) {
     }
     
     lua_pop(lua, 1);    /* remove the nil */
-    lua_pop(lua, 1);    /* remove the gameActor blocks table */
+    lua_pop(lua, 1);    /* remove the actor blocks table */
     lua_pop(lua, 1);    /* remove the _ENV table */
     
 #ifdef DEBUG
@@ -84,39 +110,6 @@ LuaGameMapScript::initialize(lua_State *lua, GameMap &map) {
     assert(lua_isfunction(lua, -1));
 #endif
     
-    return true;
+    return map;
     
 }
-
-void
-LuaGameMapScript::updateScene(lua_State *lua, GameMap &map, double timeElapsed) {
-    // TODO: this could be done better. maybe (N/D)^2, where D is cell divisions of map
-    
-    std::map<GameActor *, std::vector<GameActor *> *> collisions;
-    std::map<GameActor *, std::vector<GameActor *> *> sightings;
-    
-    map.computeInteractions(collisions, sightings);
-    
-    std::map<GameActor *, std::vector<GameActor *> *>::iterator iter;
-    
-    /* call game object script with collision data */
-    for (iter = collisions.begin(); iter != collisions.end(); ++iter) {
-        
-        GameActor *object = iter->first;
-        
-        // TODO: call script collision callback with iter->second
-        // use script in m_map w.e
-        
-    }
-    
-    /* call game object script with sighting data */
-    for (iter = sightings.begin(); iter != sightings.end(); ++iter) {
-        
-        GameActor *object = iter->first;
-        
-        // TODO: call script sightings callback with iter->second
-        
-    }
-    
-}
-

@@ -1,32 +1,47 @@
 //
 //  ScriptManager.h
-//  LuaProject
+//  Project
 //
 //  Created by Kevin Hartman on 4/17/14.
 //  Copyright (c) 2014 Kevin Hartman. All rights reserved.
 //
 
-#ifndef __LuaProject__ScriptManager__
-#define __LuaProject__ScriptManager__
+#ifndef __Turnt_Bloom__ScriptManager__
+#define __Turnt_Bloom__ScriptManager__
 
 #include "Game.h"
+#include "GameScript.h"
+#include "MapScript.h"
+#include "ActorScript.h"
 
 #include <iostream>
 
 
 class ScriptManager {
     
+private:
+    ScriptManager() {};
+    ScriptManager(ScriptManager const&);
+    void operator=(ScriptManager const&);
+    
 public:
-    virtual bool init(std::string scriptPath) = 0;
-    virtual void shutdown() = 0;
+    static ScriptManager *getInstance()
+    {
+        static ScriptManager instance;
+        
+        return &instance;
+    }
     
-//public:
-//    void updateScene(GameMap &map, double timeElapsed);
+public:
+    bool init();
+    void shutdown();
     
-    virtual bool createGame(Game **game) = 0;
-    
+public:
+    GameScript *    newGameScript();
+    MapScript *     newMapScript();
+    ActorScript *   newActorScript();
     
 };
 
 
-#endif /* defined(__LuaProject__ScriptManager__) */
+#endif /* defined(__Turnt_Bloom__ScriptManager__) */

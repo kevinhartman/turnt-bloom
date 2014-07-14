@@ -10,14 +10,40 @@
 #include "LuaGameScript.h"
 #include "LogManager.h"
 #include "LuaLogUtil.h"
+#include "LuaStateManager.h"
 
 #include <lauxlib.h>
 #include <lualib.h>
 
 LuaGameScript::LuaGameScript() {}
 
-bool
-LuaGameScript::initialize(lua_State *lua, Game &game) {
+Game *
+LuaGameScript::createNewGame(std::string filePath) {
+    
+    lua_State *lua = LuaStateManager::getLuaState();
+    
+    // TODO: set stack to empty?
+    
+    /* load the game from script */
+    if (!LuaHelpers::loadFile(lua, filePath)) {
+        // TODO: is cleanup required on fail?
+        return nullptr;
+    }
+    
+#ifdef DEBUG
+    /* print out the up value of loaded file */
+    lua_getupvalue(lua, -1, 1);
+    LogManager::debug(LuaLogUtil::dumpTable(lua));
+    lua_pop(lua, 1);
+#endif
+    
+    return newInstance(lua);
+}
+
+Game *
+LuaGameScript::initialize(lua_State *lua) {
+    
+    Game *game = new Game();
     
     /* get game's _ENV */
     lua_getupvalue(lua, -1, 1);
@@ -39,6 +65,6 @@ LuaGameScript::initialize(lua_State *lua, Game &game) {
     assert(lua_isfunction(lua, -1));
 #endif
     
-    return true;
+    return game;
     
 }

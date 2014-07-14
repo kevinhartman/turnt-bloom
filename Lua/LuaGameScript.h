@@ -16,13 +16,20 @@
 
 #include "Game.h"
 #include "LuaScript.h"
+#include "GameScript.h"
 
-class LuaGameScript : public LuaScript<Game> {
+class LuaGameScript : public LuaScript<Game>, public GameScript {
     
 public:
     LuaGameScript();
     
-    virtual bool initialize(lua_State *lua, Game &game);
+public:
+    /* From Script API */
+    virtual Game *createNewGame(std::string filePath);
+    
+public:
+    /* Internal to Lua module */
+    virtual Game *initialize(lua_State *lua);
     
 };
 

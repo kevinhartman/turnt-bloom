@@ -11,6 +11,8 @@
 
 #include <iostream>
 
+#include "Map.h"
+
 class SimulationManager {
     
 private:
@@ -28,6 +30,9 @@ public:
     
 public:
     void run();
+    
+private:
+    void updateScene(double timeElapsed, Map *map);
 
 };
 

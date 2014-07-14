@@ -1,14 +1,15 @@
 //
-//  LuaGameActorScript.cpp
+//  LuaActorScript.cpp
 //  LuaProject
 //
 //  Created by Kevin Hartman on 4/19/14.
 //  Copyright (c) 2014 Kevin Hartman. All rights reserved.
 //
 
-#include "LuaGameActorScript.h"
+#include "LuaActorScript.h"
 #include "LogManager.h"
 #include "LuaLogUtil.h"
+#include "LuaStateManager.h"
 
 #include <lauxlib.h>
 #include <lualib.h>
@@ -22,10 +23,35 @@ const char* const GLOBAL_VISION_DEPTH =     "visionDepth";
 const char* const GLOBAL_BODY_RADIUS =      "bodyRadius";
 
 
-LuaGameActorScript::LuaGameActorScript() {}
+LuaActorScript::LuaActorScript() {}
 
-bool
-LuaGameActorScript::initialize(lua_State *lua, GameActor &actor) {
+Actor *
+LuaActorScript::createNewActor(std::string filePath) {
+    
+    lua_State *lua = LuaStateManager::getLuaState();
+    
+    // TODO: set stack to empty?
+    
+    /* load the game from script */
+    if (!LuaHelpers::loadFile(lua, filePath)) {
+        // TODO: is cleanup required on fail?
+        return nullptr;
+    }
+    
+#ifdef DEBUG
+    /* print out the up value of loaded file */
+    lua_getupvalue(lua, -1, 1);
+    LogManager::debug(LuaLogUtil::dumpTable(lua));
+    lua_pop(lua, 1);
+#endif
+    
+    return newInstance(lua);
+}
+
+Actor *
+LuaActorScript::initialize(lua_State *lua) {
+    
+    Actor *actor = new Actor();
     
     /* get map's _ENV */
     lua_getupvalue(lua, -1, 1);
@@ -44,10 +70,10 @@ LuaGameActorScript::initialize(lua_State *lua, GameActor &actor) {
         
         lua_pop(lua, 1); /* remove invalid position */
         lua_pop(lua, 1); /* remove _ENV */
-        return false;
+        return nullptr;
     }
     
-    actor.setPosition(glm::vec3(position[0], position[1], position[2]));
+    actor->setPosition(glm::vec3(position[0], position[1], position[2]));
 
     lua_pop(lua, 1); /* remove position */
 
@@ -60,10 +86,10 @@ LuaGameActorScript::initialize(lua_State *lua, GameActor &actor) {
         
         lua_pop(lua, 1); /* remove invalid eyeline */
         lua_pop(lua, 1); /* remove _ENV */
-        return false;
+        return nullptr;
     }
     
-    actor.setEyeline(glm::vec3(eyeline[0], eyeline[1], eyeline[2]));
+    actor->setEyeline(glm::vec3(eyeline[0], eyeline[1], eyeline[2]));
     
     lua_pop(lua, 1); /* remove eyeline */
     
@@ -75,11 +101,11 @@ LuaGameActorScript::initialize(lua_State *lua, GameActor &actor) {
         
         lua_pop(lua, 1); /* remove invalid FOV */
         lua_pop(lua, 1); /* remove _ENV */
-        return false;
+        return nullptr;
     }
     
     lua_Number fieldOfView = lua_tonumber(lua, -1);
-    actor.setFieldOfView(fieldOfView);
+    actor->setFieldOfView(fieldOfView);
     
     lua_pop(lua, 1); /* remove FOV */
     
@@ -91,11 +117,11 @@ LuaGameActorScript::initialize(lua_State *lua, GameActor &actor) {
         
         lua_pop(lua, 1); /* remove invalid vision depth */
         lua_pop(lua, 1); /* remove _ENV */
-        return false;
+        return nullptr;
     }
     
     lua_Number visionDepth = lua_tonumber(lua, -1);
-    actor.setVisionDepth(visionDepth);
+    actor->setVisionDepth(visionDepth);
     
     lua_pop(lua, 1); /* remove vision depth */
 
@@ -107,11 +133,11 @@ LuaGameActorScript::initialize(lua_State *lua, GameActor &actor) {
         
         lua_pop(lua, 1); /* remove invalid body radius */
         lua_pop(lua, 1); /* remove _ENV */
-        return false;
+        return nullptr;
     }
     
     lua_Number bodyRadius = lua_tonumber(lua, -1);
-    actor.setBodyRadius(bodyRadius);
+    actor->setBodyRadius(bodyRadius);
     
     lua_pop(lua, 1);    /* remove body radius */
     lua_pop(lua, 1);    /* remove the _ENV table */
@@ -121,35 +147,35 @@ LuaGameActorScript::initialize(lua_State *lua, GameActor &actor) {
     assert(lua_isfunction(lua, -1));
 #endif
     
-    return true;
+    return actor;
 }
 
 void
-LuaGameActorScript::onError(int errorCode) {
+LuaActorScript::onError(Actor *actor, int errorCode) {
     // TODO: stubbed
     return;
 }
 
 bool
-LuaGameActorScript::onCollide(GameActor &other) {
+LuaActorScript::onCollide(Actor *actor, Actor *other) {
     // TODO: stubbed
     return false;
 }
 
 bool
-LuaGameActorScript::onSight(GameActor &other) {
+LuaActorScript::onSight(Actor *actor, Actor *other) {
     // TODO: stubbed
     return false;
 }
 
 bool
-LuaGameActorScript::onTargetUpdate(GameActor &other) {
+LuaActorScript::onTargetUpdate(Actor *actor, Actor *other) {
     // TODO: stubbed
     return false;
 }
 
 void
-LuaGameActorScript::onKeyboard() {
+LuaActorScript::onKeyboard(Actor *actor) {
     // TODO: stubbed
     return;
 }

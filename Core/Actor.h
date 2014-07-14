@@ -1,26 +1,26 @@
 //
-//  GameActor.h
+//  Actor.h
 //  LuaProject
 //
 //  Created by Kevin Hartman on 4/17/14.
 //  Copyright (c) 2014 Kevin Hartman. All rights reserved.
 //
 
-#ifndef __LuaProject__GameActor__
-#define __LuaProject__GameActor__
+#ifndef __LuaProject__Actor__
+#define __LuaProject__Actor__
 
 #include <iostream>
 #include <vector>
 #include <glm/glm.hpp>
 
-class GameActor {
+class Actor {
     
 public:
-    GameActor();
+    Actor();
     
 public:
-    bool isCollidingWith(GameActor &other);
-    bool isSeeing(GameActor &other);
+    bool isCollidingWith(Actor &other);
+    bool isSeeing(Actor &other);
     
     void update(double timeElapsed);
     
@@ -42,7 +42,7 @@ public:
     
     
 private:
-    std::vector<GameActor *> m_subscribers;
+    std::vector<Actor *> m_subscribers;
     
     /* motion */
     glm::vec3   m_position;
@@ -59,4 +59,4 @@ private:
     std::vector<glm::vec4> m_verticies;
 };
 
-#endif /* defined(__LuaProject__GameActor__) */
+#endif /* defined(__LuaProject__Actor__) */

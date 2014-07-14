@@ -1,7 +1,7 @@
 print('[Lua] Loading test_map.')
 
 
-gameActors = {}
+actors = {}
 
 local potato = "hi"
 
@@ -49,7 +49,7 @@ local star = {
     }
 }
 
-gameActors[1] = mushroom
-gameActors[2] = star
+actors[1] = mushroom
+actors[2] = star
 
 print("[Lua] Loaded test_map.")

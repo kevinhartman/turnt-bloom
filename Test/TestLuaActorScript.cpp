@@ -14,7 +14,7 @@
 #include "../Lua/LuaHelpers.h"
 #include "../Lua/LuaLogUtil.h"
 
-#include "../Lua/LuaGameActorScript.h"
+#include "../Lua/LuaActorScript.h"
 
 static void *TEST_STACK = nullptr;
 
@@ -36,9 +36,9 @@ TestLuaActorScript::testActorCreate() {
     LogManager::debug(LuaLogUtil::dumpTable(lua));
     lua_pop(lua, 1);
     
-    /* create a new GameActor using the loaded file */
-    LuaGameActorScript *script = new LuaGameActorScript();
-    GameActor *actor = script->newInstance(lua);
+    /* create a new Actor using the loaded file */
+    LuaActorScript *script = new LuaActorScript();
+    Actor *actor = script->newInstance(lua);
     assert(actor);
     
     /* ensure stack is as expected */
@@ -58,13 +58,13 @@ TestLuaActorScript::testActorCreateAndReload() {
     /* load the test actor */
     assert(LuaHelpers::loadFile(lua, "game/actors/test_actor.lua"));
     
-    /* create a new GameActor using the loaded file */
-    LuaGameActorScript *script = new LuaGameActorScript();
-    GameActor *actor = script->newInstance(lua);
+    /* create a new Actor using the loaded file */
+    LuaActorScript *script = new LuaActorScript();
+    Actor *actor = script->newInstance(lua);
     assert(actor);
     
     /* Get Lua actor instance from Script */
-    //assert(script->getLuaGameActor(lua, *actor));
+    //assert(script->getLuaActor(lua, *actor));
     
 }
 

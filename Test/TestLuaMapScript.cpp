@@ -14,7 +14,7 @@
 #include "../Lua/LuaLogUtil.h"
 
 #define private public
-#include "../Lua/LuaGameMapScript.h"
+#include "../Lua/LuaMapScript.h"
 
 static void *TEST_STACK = nullptr;
 
@@ -36,9 +36,9 @@ TestLuaMapScript::testMapCreate() {
     LogManager::debug(LuaLogUtil::dumpTable(lua));
     lua_pop(lua, 1);
     
-    /* create a new GameMap using the loaded file */
-    LuaGameMapScript *script = new LuaGameMapScript();
-    GameMap *map = script->newInstance(lua);
+    /* create a new Map using the loaded file */
+    LuaMapScript *script = new LuaMapScript();
+    Map *map = script->newInstance(lua);
     assert(map);
     
     /* ensure stack is as expected */
@@ -58,9 +58,9 @@ TestLuaMapScript::testMapCreateAndReload() {
     /* load the test map */
     assert(LuaHelpers::loadFile(lua, "game/maps/test_map.lua"));
     
-    /* create a new GameMap using the loaded file */
-    LuaGameMapScript *script = new LuaGameMapScript();
-    GameMap *map = script->newInstance(lua);
+    /* create a new Map using the loaded file */
+    LuaMapScript *script = new LuaMapScript();
+    Map *map = script->newInstance(lua);
     assert(map);
     
     /* Get Lua map instance from Script */
